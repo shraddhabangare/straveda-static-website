@@ -197,18 +197,27 @@ html.lenis, html.lenis body {
    Glass Card — frosted glass effect
    ============================================ */
 .glass-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(12px) saturate(1.6);
-  -webkit-backdrop-filter: blur(12px) saturate(1.6);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.glass-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(255, 72, 0, 0.12);
+  border-color: rgba(255, 72, 0, 0.15);
 }
 .dark .glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px) saturate(1.6);
-  -webkit-backdrop-filter: blur(12px) saturate(1.6);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.20);
+}
+.dark .glass-card:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 72, 0, 0.18);
+  border-color: rgba(255, 72, 0, 0.18);
 }
 
 
@@ -257,7 +266,8 @@ html.lenis, html.lenis body {
    Enhanced Card Hover Effects (Light Theme)
    ============================================ */
 .card-hover {
-  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-hover:hover {
   transform: translateY(-6px);
@@ -268,10 +278,11 @@ html.lenis, html.lenis body {
    Glassmorphism Utility (Light Theme)
    ============================================ */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 /* ============================================
@@ -385,7 +396,9 @@ input:focus, textarea:focus, select:focus {
    Card Hover Lift (Light Theme)
    ============================================ */
 .card-lift {
-  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-lift:hover {
@@ -406,14 +419,16 @@ input:focus, textarea:focus, select:focus {
   position: absolute;
   bottom: -4px;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
   background: #FF4800;
-  transition: width 200ms ease;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
 }
 
 .nav-link-underline:hover::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 /* ============================================
@@ -563,7 +578,9 @@ input:focus, textarea:focus, select:focus {
    Enhanced Card Glow on Hover (Light Theme)
    ============================================ */
 .card-glow {
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 .card-glow:hover {
@@ -608,7 +625,10 @@ input:focus, textarea:focus, select:focus {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .frosted-card:hover {
   background: rgba(255, 255, 255, 0.95);
@@ -629,13 +649,15 @@ input:focus, textarea:focus, select:focus {
   position: absolute;
   bottom: -2px;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 1.5px;
   background: linear-gradient(90deg, #FF4800, #ff6a33);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .animated-underline:hover::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 /* ============================================
@@ -821,7 +843,9 @@ html {
    Tag/Badge Hover Scale
    ============================================ */
 .tag-hover {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .tag-hover:hover {
   transform: scale(1.05);
@@ -1119,7 +1143,8 @@ html {
    Hover Lift Shadow Combo (Light Theme)
    ============================================ */
 .hover-lift-shadow {
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hover-lift-shadow:hover {
   transform: translateY(-6px);
@@ -1527,7 +1552,8 @@ html {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
               0 1px 3px rgba(0, 0, 0, 0.04),
               0 4px 12px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-premium:hover {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
@@ -1648,7 +1674,8 @@ html {
 .card-premium {
   position: relative;
   overflow: hidden;
-  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-premium::before {
   content: '';
@@ -1852,13 +1879,7 @@ html {
    Phase 19-b: Additional Premium Utilities
    ============================================ */
 
-/* Premium glass card */
-.glass-card {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-}
+/* Solid glass card — consolidated into primary definition above */
 
 /* Text gradient utility (updated: orange → indigo) */
 .text-gradient-brand {
@@ -2033,20 +2054,22 @@ html {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 .dark .glass-card {
-  background: rgba(18, 18, 30, 0.7) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.20) !important;
 }
 .dark .glass {
-  background: rgba(18, 18, 30, 0.7);
+  background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
 }
 .dark .glass-dark {
-  background: rgba(18, 18, 30, 0.6);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.09);
 }
 .dark .glass-subtle {
-  background: rgba(18, 18, 30, 0.5);
-  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* ── Divider gradient ── */

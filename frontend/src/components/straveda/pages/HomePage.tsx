@@ -1,29 +1,21 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { useScrollGradient } from '@/hooks/useScrollGradient';
 import {
-  ChevronDown,
   Star,
   ArrowRight,
-  Zap,
-  TrendingUp,
-  Building2,
   Shield,
   Activity,
   Cloud,
   Brain,
   Globe,
-  GitBranch,
   Plus,
   Users,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
-import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
@@ -126,29 +118,29 @@ const services: ServiceItem[] = [
 function ServiceCard({ service, onNavigate }: { service: ServiceItem; onNavigate: (page: string) => void }) {
   return (
     <div
-      className="svc-card relative flex flex-col overflow-hidden rounded-[24px]"
+      className="svc-card relative flex h-full flex-col overflow-hidden rounded-[24px]"
       style={{
-        background: 'rgba(255,255,255,0.55)',
-        backdropFilter: 'blur(24px) saturate(1.8) brightness(1.04)',
-        WebkitBackdropFilter: 'blur(24px) saturate(1.8) brightness(1.04)',
-        border: '1.5px solid rgba(255,255,255,0.9)',
-        boxShadow: `inset 0 2px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.06), inset 1px 0 0 rgba(255,255,255,0.6), inset -1px 0 0 rgba(255,255,255,0.6), 0 8px 24px rgba(0,0,0,0.10), 0 32px 64px rgba(0,0,0,0.07)`,
-        transition: 'box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease',
+        background: 'rgba(255,255,255,0.70)',
+        backdropFilter: 'blur(16px) saturate(1.8)',
+        WebkitBackdropFilter: 'blur(16px) saturate(1.8)',
+        border: '1px solid rgba(0,0,0,0.05)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+        transition: 'box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease',
         fontFamily: "'Space Grotesk', system-ui, sans-serif",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLDivElement;
         el.style.transform = 'translateY(-6px)';
-        el.style.borderColor = 'rgba(255,255,255,1)';
-        el.style.boxShadow = `inset 0 2px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.06), inset 1px 0 0 rgba(255,255,255,0.6), inset -1px 0 0 rgba(255,255,255,0.6), 0 12px 32px rgba(255,72,0,0.12), 0 40px 80px rgba(0,0,0,0.10)`;
+        el.style.borderColor = 'rgba(255,72,0,0.18)';
+        el.style.boxShadow = '0 8px 32px rgba(0,0,0,0.09), 0 0 0 1px rgba(255,72,0,0.14), 0 20px 40px rgba(255,72,0,0.08)';
         const glow = el.querySelector('.svc-glow') as HTMLElement | null;
         if (glow) glow.style.opacity = '1';
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLDivElement;
         el.style.transform = '';
-        el.style.borderColor = 'rgba(255,255,255,0.9)';
-        el.style.boxShadow = `inset 0 2px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.06), inset 1px 0 0 rgba(255,255,255,0.6), inset -1px 0 0 rgba(255,255,255,0.6), 0 8px 24px rgba(0,0,0,0.10), 0 32px 64px rgba(0,0,0,0.07)`;
+        el.style.borderColor = 'rgba(0,0,0,0.05)';
+        el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)';
         const glow = el.querySelector('.svc-glow') as HTMLElement | null;
         if (glow) glow.style.opacity = '0';
       }}
@@ -214,46 +206,6 @@ function ServiceCard({ service, onNavigate }: { service: ServiceItem; onNavigate
   );
 }
 
-// ─── Counters ─────────────────────────────────────────────────────────────────
-
-function Counter({ target, suffix }: { target: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 2000; const start = performance.now();
-    function step(now: number) { const p = Math.min((now - start) / duration, 1); setCount(Math.round((1 - Math.pow(1 - p, 3)) * target)); if (p < 1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }, [inView, target]);
-  return <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(32px, 6vw, 64px)', fontWeight: 600, lineHeight: 1 }}>{count}{suffix}</span>;
-}
-
-function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffix: string; decimals?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 2000; const start = performance.now();
-    function step(now: number) { const p = Math.min((now - start) / duration, 1); const v = (1 - Math.pow(1 - p, 3)) * target; setCount(decimals > 0 ? parseFloat(v.toFixed(decimals)) : Math.round(v)); if (p < 1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }, [inView, target, decimals]);
-  return <span ref={ref} className="counter-display text-[#1a1a2e]" style={{ fontSize: 'clamp(28px, 6vw, 48px)', fontWeight: 700, lineHeight: 1 }}>{count}{suffix}</span>;
-}
-
-function StatCounter({ target, suffix }: { target: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 2000; const start = performance.now();
-    function step(now: number) { const p = Math.min((now - start) / duration, 1); setCount(Math.round((1 - Math.pow(1 - p, 3)) * target)); if (p < 1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }, [inView, target]);
-  return <span ref={ref} className="counter-hover-gradient text-[clamp(18px,4vw,28px)] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">{count}{suffix}</span>;
-}
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -352,7 +304,6 @@ function FAQSection() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage({ onNavigate }: HomePageProps) {
-  const heroScrolled = useScrollGradient(100);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   const capScrollRef = useRef<HTMLDivElement>(null);
@@ -430,10 +381,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { name: 'PostgreSQL', brandColor: '#336791', src: '/logos/postgresql.jpg', w: 90, h: 40 },
               { name: 'Next.js', brandColor: '#000000', src: '/logos/nextjs.svg', w: 90, h: 40 },
             ].map((partner) => (
-              <motion.div key={partner.name} variants={cardVariants} whileHover={{ y: -5, scale: 1.02 }} transition={{ duration: 0.25, ease }} className="group relative flex flex-col items-center justify-center gap-3 rounded-xl px-6 py-6 overflow-hidden cursor-default" style={{ background: isDark ? 'rgba(255,255,255,0.04)' : '#f4f4f8', border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`, transition: 'border-color 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${partner.brandColor}55`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'; }}>
+              <motion.div key={partner.name} variants={cardVariants} whileHover={{ y: -5, scale: 1.02 }} transition={{ duration: 0.25, ease }} className="group relative flex flex-col items-center justify-center gap-3 rounded-xl px-6 py-6 overflow-hidden cursor-default" style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.75)', backdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', WebkitBackdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1.5px solid rgba(255,255,255,0.9)', boxShadow: isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), 0 8px 24px rgba(0,0,0,0.08)', transition: 'border-color 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${partner.brandColor}88`; e.currentTarget.style.boxShadow = isDark ? `inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px ${partner.brandColor}22` : `inset 0 2px 0 rgba(255,255,255,0.95), 0 12px 40px ${partner.brandColor}22`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9)'; e.currentTarget.style.boxShadow = isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), 0 8px 24px rgba(0,0,0,0.08)'; }}>
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl" style={{ backgroundColor: partner.brandColor }} />
-                <div className="relative flex items-center justify-center h-10 grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
-                  <Image src={partner.src} alt={partner.name} width={partner.w} height={partner.h} className="object-contain max-h-10 w-auto" />
+                <div className="relative h-10 w-full grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                  <Image src={partner.src} alt={partner.name} fill sizes="(max-width: 640px) 45vw, (max-width: 1024px) 22vw, 14vw" className="object-contain" />
                 </div>
                 <span className="relative text-[11px] font-medium tracking-wide text-[#9ca3af] dark:text-[#6b7280]">{partner.name}</span>
               </motion.div>
@@ -485,7 +436,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="grid grid-cols-1 gap-[29px] md:grid-cols-2 lg:grid-cols-4"
           >
             {services.map((service, i) => (
-              <motion.div key={i} variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}>
+              <motion.div key={i} variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }} className="h-full">
                 <ServiceCard service={service} onNavigate={onNavigate} />
               </motion.div>
             ))}
@@ -511,7 +462,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="relative -mx-6 lg:-mx-8 overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}>
             <motion.div ref={capScrollRef} onScroll={handleCapScroll} variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="flex gap-5 overflow-x-auto pb-6 px-6 lg:px-8 no-scrollbar snap-x snap-mandatory">
               {bentoItems.map((item) => (
-                <motion.div key={item.title} variants={cardVariants} className="group relative flex-shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-300 cursor-default flex flex-col" style={{ width: 'clamp(260px, 78vw, 440px)', minHeight: '300px', padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)', background: isDark ? 'rgba(255,255,255,0.04)' : '#FFFFFF', border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`, boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.05)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,72,0,0.35)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(255,72,0,0.12), 0 2px 8px rgba(0,0,0,0.06)'; e.currentTarget.style.transform = 'translateY(-6px)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'; e.currentTarget.style.boxShadow = isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.05)'; e.currentTarget.style.transform = 'translateY(0)'; }}>
+                <motion.div key={item.title} variants={cardVariants} className="group relative flex-shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-300 cursor-default flex flex-col" style={{ width: 'clamp(260px, 78vw, 440px)', minHeight: '300px', padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)', background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.75)', backdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', WebkitBackdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1.5px solid rgba(255,255,255,0.9)', boxShadow: isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,72,0,0.35)'; e.currentTarget.style.boxShadow = isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(255,72,0,0.15), 0 24px 48px rgba(0,0,0,0.4)' : 'inset 0 2px 0 rgba(255,255,255,0.95), 0 12px 40px rgba(255,72,0,0.12), 0 24px 48px rgba(0,0,0,0.08)'; e.currentTarget.style.transform = 'translateY(-6px)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9)'; e.currentTarget.style.boxShadow = isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}>
                   <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 55%)' }} />
                   <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300" style={{ background: isDark ? 'rgba(255,72,0,0.12)' : 'rgba(255,72,0,0.08)' }}>
                     <item.icon className="h-7 w-7" style={{ color: '#FF4800' }} />

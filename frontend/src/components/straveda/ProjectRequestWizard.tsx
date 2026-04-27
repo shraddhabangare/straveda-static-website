@@ -84,14 +84,16 @@ const slideVariants = {
   }),
 };
 
+
+/*
 const stepIndicatorVariants = {
   inactive: { scale: 1, backgroundColor: 'rgba(255,255,255,0.08)' },
   active: { scale: 1.1, backgroundColor: '#FF4800' },
   completed: { scale: 1, backgroundColor: '#FF4800' },
 };
-
+*/
 // ─── Step Indicator ─────────────────────────────────────────────
-
+/*
 function StepIndicator({ currentStep }: { currentStep: number }) {
   const steps = ['Project', 'Timeline & Budget', 'Contact'];
   return (
@@ -159,6 +161,7 @@ function StepIndicator({ currentStep }: { currentStep: number }) {
   );
 }
 
+*/
 // ─── Progress Bar ───────────────────────────────────────────────
 
 function ProgressBar({ currentStep }: { currentStep: number }) {
@@ -734,9 +737,8 @@ export default function ProjectRequestWizard() {
       {/* Progress Bar */}
       <ProgressBar currentStep={isSubmitted ? 3 : currentStep} />
 
-      {/* Step Indicator */}
-      {!isSubmitted && <StepIndicator currentStep={currentStep} />}
 
+      {/* Step Indicator */}
       {/* Step Content */}
       <div className="relative overflow-hidden" style={{ minHeight: '380px' }}>
         <AnimatePresence mode="wait" custom={direction}>

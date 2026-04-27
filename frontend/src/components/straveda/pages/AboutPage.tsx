@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import StatsSectionNew from '@/components/straveda/StatsSection';
 import {
   ArrowRight, Zap, Lock, Clock, Eye, TrendingUp, Users,
   Quote, CheckCircle2
@@ -369,19 +370,29 @@ function ResultsSection() {
 const roadmap = [
   { step: "01", title: "Book a Strategy Call", meta: "30 min, free", desc: "We audit your operations and biggest bottlenecks, recommend what to build first.", cta: "Book Now" },
   { step: "02", title: "Get a Custom Proposal", meta: "48 hours", desc: "Fixed-price quote for your project. Timeline and success metrics included.", cta: "Request Proposal" },
-  { step: "03", title: "Start Building", meta: "4–6 weeks", desc: "Weekly sprints with visible progress. Go live and reclaim your time.", cta: null },
+  { step: "03", title: "Start Building", meta: "4–6 weeks", desc: "Weekly sprints with visible progress. Go live and reclaim your time.", cta: "Book a Strategy Call" },
 ];
 
 function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
-    <section className="bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32 px-6 border-t border-black/5 dark:border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32 px-6 border-t border-black/5 dark:border-white/5 overflow-hidden">
+      {/* Background blobs — give backdrop-blur something to work against */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#FF4800]/10 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-orange-100/60 dark:bg-orange-900/10 blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-[#FF4800]/8 blur-3xl" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto">
         <h2 className="masked-title text-3xl md:text-4xl font-normal uppercase tracking-tighter mb-10 md:mb-20">Let's build something that matters.</h2>
         <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-20">
           {roadmap.map((r, i) => (
-            <motion.div key={i} {...fadeUp} className="flex flex-col p-6 md:p-10 rounded-3xl border border-black/5 dark:border-white/5 bg-white dark:bg-white/[0.01]">
-              <div className="flex justify-between items-start mb-8 md:mb-10">
-                <span className="stroke-text text-5xl md:text-6xl font-black opacity-30">{r.step}</span>
+            <motion.div
+              key={i}
+              {...fadeUp}
+              className="flex flex-col p-6 md:p-10 rounded-3xl border border-white/80 dark:border-white/10 bg-white/50 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.06),0_1px_2px_rgba(255,255,255,0.8)_inset] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+            >
+              <div className="flex justify-end items-start mb-8 md:mb-10">
                 <span className="text-[10px] font-bold uppercase text-[#FF4800] bg-[#FF4800]/10 px-3 py-1 rounded-full">{r.meta}</span>
               </div>
               <h4 className="text-black dark:text-white text-lg md:text-xl font-normal mb-3 md:mb-4">{r.title}</h4>
@@ -403,7 +414,7 @@ function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void 
               onClick={() => onNavigate('contact')}
               className="bg-[#FF4800] text-white px-8 md:px-12 py-4 md:py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-[#e03f00] transition-colors"
             >
-              Book Strategy Call →
+              Consult Now →
             </button>
           </MagneticButton>
         </div>
@@ -419,6 +430,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (page: string) =
       <HeroSection />
       <StorySection />
       <PrinciplesSection />
+      <StatsSectionNew />
       <StatsSection />
       <ResultsSection />
       <WorkWithUsSection onNavigate={onNavigate} />

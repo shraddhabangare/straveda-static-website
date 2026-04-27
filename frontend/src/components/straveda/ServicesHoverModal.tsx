@@ -159,10 +159,10 @@ export default function ServicesHoverModal({ onNavigate }: ServicesHoverModalPro
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease }}
-                className={`card-premium group relative flex flex-col items-start gap-4 rounded-xl p-6 border transition-all duration-300 ${
+                className={`card-premium group relative flex flex-col items-start gap-4 rounded-xl p-6 transition-all duration-300 ${
                   isActive
-                    ? 'border-[#FF4800]/40 bg-[#FF4800]/[0.03] shadow-[0_8px_30px_rgba(255,72,0,0.12)]'
-                    : 'border-[#e5e7eb] dark:border-white/[0.08] bg-white dark:bg-white/[0.03] hover:border-[#FF4800]/20 hover:shadow-md hover:-translate-y-1'
+                    ? 'border border-[#FF4800]/40 bg-[#FF4800]/[0.03] shadow-[0_8px_30px_rgba(255,72,0,0.12)]'
+                    : 'glass-card hover:[border-color:rgba(255,72,0,0.2)] hover:-translate-y-1'
                 }`}
               >
                 {isActive && (
@@ -220,7 +220,7 @@ export default function ServicesHoverModal({ onNavigate }: ServicesHoverModalPro
               transition={{ duration: 0.35, ease }}
               className="overflow-hidden mt-4"
             >
-              <div className="bg-[#f8f8fc] dark:bg-white/[0.04] rounded-xl border border-[#e5e7eb] dark:border-white/[0.08] overflow-hidden relative">
+              <div className="glass-card rounded-xl overflow-hidden relative">
                 <div
                   className="absolute top-0 h-[3px] bg-gradient-to-r from-[#FF4800] to-[#FF4800]/20 hidden md:block"
                   style={{ left: `${panelOffset}px`, width: '180px' }}

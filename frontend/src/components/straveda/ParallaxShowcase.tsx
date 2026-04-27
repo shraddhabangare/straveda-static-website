@@ -85,18 +85,19 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
                   <div
                     className="group rounded-xl p-6 transition-all duration-300 hover:-translate-y-1"
                     style={{
-                      background: 'rgba(43,35,88,0.3)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255,255,255,0.06)',
+                      background: 'rgba(255,255,255,0.07)',
+                      backdropFilter: 'blur(20px) saturate(1.4)',
+                      WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
+                      border: '1px solid rgba(255,255,255,0.13)',
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.3)',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.border = '1px solid rgba(255,72,0,0.3)';
-                      e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,72,0,0.08)';
+                      e.currentTarget.style.border = '1px solid rgba(255,72,0,0.35)';
+                      e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.1), 0 12px 40px rgba(255,72,0,0.12), 0 4px 20px rgba(0,0,0,0.3)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
-                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.border = '1px solid rgba(255,255,255,0.13)';
+                      e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.3)';
                     }}
                   >
                     <Icon className="mb-3 h-5 w-5" style={{ color: '#FF4800' }} />

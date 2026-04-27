@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Globe, CheckCircle2, Loader2, Award, FolderGit2, ThumbsUp } from 'lucide-react';
+import { Mail, MapPin, Clock, Globe, CheckCircle2, Loader2, Award, FolderGit2 } from 'lucide-react';
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import MagneticButton from '@/components/straveda/MagneticButton';
@@ -35,6 +35,7 @@ const infoItemVariants = {
   }),
 }
 
+/*
 const benefitCards = [
   {
     icon: <Award size={20} className="text-[#FF4800]" />,
@@ -44,12 +45,8 @@ const benefitCards = [
     icon: <FolderGit2 size={20} className="text-[#FF4800]" />,
     title: '200+ Projects Delivered',
   },
-  {
-    icon: <ThumbsUp size={20} className="text-[#FF4800]" />,
-    title: '100% Client Satisfaction',
-  },
 ]
-
+*/
 /* ─── Floating Label Input ────────────────────────────────────────── */
 function FloatingInput({
   id,
@@ -154,9 +151,14 @@ function FloatingTextarea({
   );
 }
 
+type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState<FormData>(initialFormData)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData]   = useState<FormData>(initialFormData)
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle')
+  const [errorMsg, setErrorMsg]   = useState('')
+
+  const isSubmitting = formStatus === 'sending';
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -166,14 +168,36 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
+    setFormStatus('sending')
+    setErrorMsg('')
 
-    // Mocking the API response for static site
-    setTimeout(() => {
-      toast.success('Message sent successfully! (Static Mode) We\'ll get back to you soon.')
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:     formData.name,
+          email:    formData.email,
+          company:  formData.company,
+          phone:    formData.phone,
+          message:  formData.message,
+          formType: 'contact',
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error ?? 'Something went wrong.')
+
+      setFormStatus('success')
       setFormData(initialFormData)
-      setIsSubmitting(false)
-    }, 1200);
+      toast.success("Message sent! We'll get back to you within 1 business day.")
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to send. Please try again.'
+      setFormStatus('error')
+      setErrorMsg(msg)
+      toast.error(msg)
+    }
   }
 
   return (
@@ -297,7 +321,7 @@ export default function ContactPage() {
             transition={{ duration: 0.5, ease }}
             className="text-center text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-4"
           >
-            Why choose Straveda?
+            One Form Away to a Tailored Solution
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -306,19 +330,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6, ease }}
             className="flex flex-wrap justify-center gap-4 sm:gap-6"
           >
-            {benefitCards.map((card, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease }}
-                className="glass-card flex items-center gap-3 rounded-lg px-5 py-3.5"
-              >
-                {card.icon}
-                <span className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] whitespace-nowrap">{card.title}</span>
-              </motion.div>
-            ))}
+            
           </motion.div>
         </div>
       </section>
@@ -385,7 +397,13 @@ export default function ContactPage() {
                 label="Tell us about your challenge... *"
               />
 
-              <MagneticButton>
+              {errorMsg && (
+                <p className="text-red-500 dark:text-red-400 text-[13px] rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 px-4 py-2.5">
+                  {errorMsg}
+                </p>
+              )}
+
+              <MagneticButton className="w-full">
                 <button
                   data-magnetic
                   type="submit"
@@ -434,7 +452,7 @@ export default function ContactPage() {
               <Mail className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
                 <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[18px] font-medium">
-                  hello@straveda.com
+                  hello@stravedatech.com
                 </p>
               </div>
             </motion.div>

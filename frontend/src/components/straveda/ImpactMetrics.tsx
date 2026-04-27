@@ -148,12 +148,13 @@ function MetricCard({
         y: -4,
         boxShadow: '0 8px 40px rgba(255, 72, 0, 0.25), 0 0 0 1px rgba(255, 72, 0, 0.15)',
       }}
-      className="group relative rounded p-6 md:p-8 transition-all duration-300"
+      className="group relative rounded-xl p-6 md:p-8 transition-all duration-300"
       style={{
-        background: 'rgba(255, 255, 255, 0.04)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        backdropFilter: 'blur(12px)',
-        boxShadow: 'var(--shadow-card)',
+        background: 'rgba(255, 255, 255, 0.07)',
+        border: '1px solid rgba(255, 255, 255, 0.13)',
+        backdropFilter: 'blur(20px) saturate(1.4)',
+        WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 24px rgba(0,0,0,0.35)',
       }}
     >
       {/* Subtle glow effect on hover */}

@@ -176,19 +176,21 @@ export default function SuccessStories() {
                 <div
                   className="h-full rounded-xl p-6 transition-all duration-300"
                   style={{
-                    background: '#FFFFFF',
+                    background: 'rgba(255, 255, 255, 0.75)',
+                    backdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)',
                     borderLeft: '3px solid #FF4800',
-                    borderTop: '1px solid rgba(0,0,0,0.06)',
-                    borderRight: '1px solid rgba(0,0,0,0.06)',
-                    borderBottom: '1px solid rgba(0,0,0,0.06)',
-                    boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
+                    borderTop: '1.5px solid rgba(255,255,255,0.9)',
+                    borderRight: '1.5px solid rgba(255,255,255,0.9)',
+                    borderBottom: '1.5px solid rgba(255,255,255,0.9)',
+                    boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,72,0,0.1)'
+                    e.currentTarget.style.boxShadow = 'inset 0 2px 0 rgba(255,255,255,0.95), 0 12px 40px rgba(255,72,0,0.12), 0 24px 48px rgba(0,0,0,0.08)'
                     e.currentTarget.style.transform = 'translateY(-4px)'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.04)'
+                    e.currentTarget.style.boxShadow = 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.05)'
                     e.currentTarget.style.transform = 'translateY(0)'
                   }}
                 >

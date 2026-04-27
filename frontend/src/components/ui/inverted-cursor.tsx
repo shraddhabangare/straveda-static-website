@@ -1,280 +1,349 @@
 "use client"
 
 import React, { useEffect, useRef } from "react"
-import { useCursorStyle, type CursorStyle } from "@/lib/utils/cursor-context"
+import { useCursorStyle, type CursorStyle } from "@/lib/cursor-context"
 import { useTheme } from "next-themes"
 
-// ─── Tuning ───────────────────────────────────────────────────────────────────
-const LERP_RING   = 0.11   // ring trail speed (lower = more trail)
-const LERP_DOT    = 0.85   // dot snaps near-instantly
-const LERP_SIZE   = 0.14   // ring size morph speed
-const LERP_FILL   = 0.13   // ring fill alpha lerp
-const LERP_STRETCH = 0.13
-const STRETCH_DECAY = 0.13
-const VELOCITY_THRESHOLD = 5
-const MAX_STRETCH = 1.22
-const SNAP = 0.04
-const VELOCITY_SMOOTH = 0.18
+/* ═══════════════════════════════════════════════════════════════════════
+   Ultra-Smooth Premium Cursor Engine
+   
+   Performance targets:
+   - 60fps minimum (120fps capable)
+   - 0 visible delay, 0 jitter
+   - GPU-accelerated via translate3d
+   - Zero React re-renders during animation (all refs)
+   
+   Architecture:
+   - Outer ring: 40px circle with 1.5px border, semi-transparent
+   - Inner dot: 8px solid circle, full opacity
+   - Both use requestAnimationFrame loop with lerp interpolation
+   - Velocity tracking for stretch/skew effects on fast movement
+   - Smooth size/opacity transitions via lerp (not CSS transitions)
+   ═══════════════════════════════════════════════════════════════════════ */
 
-// ─── Size config: [ring px, dot px] ──────────────────────────────────────────
+// ─── Configuration ────────────────────────────────────────────────────
+const LERP_POS = 0.12          // Position interpolation (0.08=trail, 0.15=responsive)
+const LERP_SIZE = 0.12         // Size interpolation speed
+const LERP_OPACITY = 0.1       // Opacity interpolation speed
+const LERP_STRETCH = 0.12      // Stretch response speed
+const STRETCH_DECAY = 0.12     // Stretch decay back to normal
+const VELOCITY_THRESHOLD = 6   // Min velocity to start stretching
+const MAX_STRETCH = 1.25       // Maximum stretch factor
+const SNAP = 0.05              // Snap threshold to prevent micro-jitter
+const VELOCITY_SMOOTH = 0.2    // Velocity smoothing factor
+
+// Fixed DOM sizes — elements never change dimensions, only scale via transform.
+// Values must be ≥ the largest entry in SIZES to avoid upscaling blur.
+const OUTER_BASE = 72          // Matches SIZES.text[0] — the largest outer size
+const INNER_BASE = 8           // Matches SIZES.default[1] — the largest inner size
+
+// Size config per cursor style: [outer diameter, inner diameter]
 const SIZES: Record<CursorStyle, [number, number]> = {
-  default: [32, 5],
+  default: [32, 6],
   nav:     [22, 4],
-  link:    [44, 0],   // dot hidden on hover
-  text:    [20, 3],
+  link:    [46, 6],
+  text:    [58, 3],
 }
 
-// ─── Ring fill alpha (0 = hollow, 1 = filled) ────────────────────────────────
-const FILLS: Record<CursorStyle, number> = {
-  default: 0,
-  nav:     0.08,
-  link:    0.12,
-  text:    0,
+// Opacity config per style: [outer, inner]
+const OPACITIES: Record<CursorStyle, [number, number]> = {
+  default: [0.5, 1],
+  nav:     [0.7, 1],
+  link:    [0.35, 0.85],
+  text:    [0.3, 0.7],
 }
 
-// ─── Ring border width ────────────────────────────────────────────────────────
-const BORDERS: Record<CursorStyle, number> = {
-  default: 1.5,
-  nav:     1.5,
-  link:    1.5,
-  text:    1,
+// Blend mode per style
+const BLENDS: Record<CursorStyle, string> = {
+  default: "difference",
+  nav:     "normal",
+  link:    "difference",
+  text:    "normal",
 }
 
-// ─── Ring border radius (% or px) ────────────────────────────────────────────
-const RADII: Record<CursorStyle, string> = {
-  default: "50%",
-  nav:     "50%",
-  link:    "50%",
-  text:    "50%",
+// ─── Lerp helper ──────────────────────────────────────────────────────
+function lerp(current: number, target: number, factor: number): number {
+  const diff = target - current
+  if (Math.abs(diff) < SNAP) return target
+  return current + diff * factor
 }
 
-// ─── Ring height override for text style (tall/narrow) ───────────────────────
-const TEXT_RING_HEIGHT = 28  // px — tall pill for text mode
-const TEXT_RING_WIDTH  = 16  // px
-
-function lerp(cur: number, tgt: number, f: number): number {
-  const d = tgt - cur
-  return Math.abs(d) < SNAP ? tgt : cur + d * f
-}
-
-// ─── Color helpers ────────────────────────────────────────────────────────────
-function ringColor(isDark: boolean, fill: number): string {
-  const [r, g, b] = isDark ? [255, 255, 255] : [20, 20, 30]
-  return `rgba(${r},${g},${b},${fill})`
-}
-function ringBorder(isDark: boolean): string {
-  return isDark ? "rgba(255,255,255,0.6)" : "rgba(20,20,30,0.55)"
-}
-function dotColor(isDark: boolean): string {
-  return isDark ? "rgba(255,255,255,0.9)" : "rgba(20,20,30,0.85)"
-}
-
+// ─── Component ────────────────────────────────────────────────────────
 export const Cursor: React.FC = () => {
-  const ringRef = useRef<HTMLDivElement>(null)
-  const dotRef  = useRef<HTMLDivElement>(null)
-  const rafRef  = useRef<number>(0)
+  const outerRef = useRef<HTMLDivElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number>(0)
 
+  // ─── Mutable animation state (never triggers re-render) ─────────
   const state = useRef({
-    // Mouse
-    mouseX: -200, mouseY: -200,
-    // Dot (near-instant)
-    dotX: -200, dotY: -200,
-    // Ring (lerped)
-    ringX: -200, ringY: -200,
-    // Velocity
-    velX: 0, velY: 0,
-    // Sizes
-    ringW: SIZES.default[0],
-    ringH: SIZES.default[0],
-    dotSize: SIZES.default[1],
-    // Fill alpha
-    fillAlpha: 0,
-    targetFillAlpha: 0,
+    // Mouse target position
+    mouseX: -200,
+    mouseY: -200,
+    // Interpolated render position
+    posX: -200,
+    posY: -200,
+    // Smoothed velocity
+    velX: 0,
+    velY: 0,
+    // Interpolated sizes
+    outerSize: SIZES.default[0],
+    innerSize: SIZES.default[1],
+    // Interpolated opacities
+    outerOp: 0,
+    innerOp: 0,
+    // Target opacities
+    targetOuterOp: OPACITIES.default[0],
+    targetInnerOp: OPACITIES.default[1],
     // Stretch
-    stretchX: 1, stretchY: 1, rotation: 0,
+    stretchX: 1,
+    stretchY: 1,
+    rotation: 0,
     // Visibility
     visible: false,
-    // Style
+    // Current cursor style
     style: "default" as CursorStyle,
+    // Theme
     isDark: false,
+    // Hover pressed state
     pressed: false,
   })
 
+  // ─── Context ──────────────────────────────────────────────────────
   const { cursorStyle, setCursorStyle } = useCursorStyle()
   const { theme } = useTheme()
 
-  useEffect(() => { state.current.isDark = theme === "dark" }, [theme])
+  // Sync theme to ref
+  useEffect(() => {
+    state.current.isDark = theme === "dark"
+  }, [theme])
 
+  // ─── Update targets when cursor style changes ─────────────────────
   useEffect(() => {
     const s = state.current
     s.style = cursorStyle
-    s.targetFillAlpha = FILLS[cursorStyle]
+    s.targetOuterOp = OPACITIES[cursorStyle][0]
+    s.targetInnerOp = OPACITIES[cursorStyle][1]
   }, [cursorStyle])
 
-  // ─── Auto-detect interactive hovers ─────────────────────────────────────
+  // ─── Auto-detect interactive element hovers ───────────────────────
+  // 'link' mode: <a>, <button>, [data-cursor-hover], .interactive
+  // 'text' mode: <input>, <textarea>, <select>, [contenteditable]
+  // Restores previous style when leaving each zone.
   useEffect(() => {
-    const INTERACTIVE = "a, button, [data-cursor-hover]"
-    const prevStyle = { current: "default" as CursorStyle }
-    let hovering = false
+    const INTERACTIVE = 'a, button, [data-cursor-hover], .interactive'
+    const TEXT_ELEMS  = 'input, textarea, select, [contenteditable]'
+    const prevStyleRef = { current: 'default' as CursorStyle }
+    let isHovering = false
 
     const onOver = (e: MouseEvent) => {
-      if (hovering) return
-      if (!(e.target as HTMLElement).closest(INTERACTIVE)) return
-      hovering = true
-      prevStyle.current = state.current.style === "link" ? prevStyle.current : state.current.style
-      setCursorStyle("link")
-    }
-    const onOut = (e: MouseEvent) => {
-      if (!hovering) return
-      const t = e.target as HTMLElement
-      if (!t.closest(INTERACTIVE)) return
-      const rel = e.relatedTarget as HTMLElement | null
-      if (rel?.closest(INTERACTIVE)) return
-      hovering = false
-      setCursorStyle(prevStyle.current)
+      if (isHovering) return
+      const el = e.target as HTMLElement
+      if (el.closest(TEXT_ELEMS)) {
+        isHovering = true
+        prevStyleRef.current = state.current.style === 'text' ? prevStyleRef.current : state.current.style
+        setCursorStyle('text')
+        return
+      }
+      if (!el.closest(INTERACTIVE)) return
+      isHovering = true
+      prevStyleRef.current = state.current.style === 'link' ? prevStyleRef.current : state.current.style
+      setCursorStyle('link')
     }
 
-    document.addEventListener("mouseover", onOver, { passive: true })
-    document.addEventListener("mouseout", onOut, { passive: true })
+    const onOut = (e: MouseEvent) => {
+      if (!isHovering) return
+      const target = e.target as HTMLElement
+      const wasText = !!target.closest(TEXT_ELEMS)
+      const activeSelector = wasText ? TEXT_ELEMS : INTERACTIVE
+      if (!target.closest(activeSelector)) return
+      const related = e.relatedTarget as HTMLElement | null
+      if (related?.closest(TEXT_ELEMS) || related?.closest(INTERACTIVE)) return
+      isHovering = false
+      setCursorStyle(prevStyleRef.current)
+    }
+
+    document.addEventListener('mouseover', onOver, { passive: true })
+    document.addEventListener('mouseout', onOut, { passive: true })
     return () => {
-      document.removeEventListener("mouseover", onOver)
-      document.removeEventListener("mouseout", onOut)
+      document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseout', onOut)
     }
   }, [setCursorStyle])
 
-  // ─── Animation loop ──────────────────────────────────────────────────────
+  // ─── Main animation loop (runs once, never restarts) ──────────────
   useEffect(() => {
     const tick = () => {
       const s = state.current
-      const ring = ringRef.current
-      const dot  = dotRef.current
+      const outer = outerRef.current
+      const inner = innerRef.current
 
-      // Dot snaps nearly instantly
-      s.dotX = lerp(s.dotX, s.mouseX, LERP_DOT)
-      s.dotY = lerp(s.dotY, s.mouseY, LERP_DOT)
+      // ── Position lerp ──
+      s.posX = lerp(s.posX, s.mouseX, LERP_POS)
+      s.posY = lerp(s.posY, s.mouseY, LERP_POS)
 
-      // Ring lerps behind
-      s.ringX = lerp(s.ringX, s.mouseX, LERP_RING)
-      s.ringY = lerp(s.ringY, s.mouseY, LERP_RING)
-
-      // Velocity for stretch
-      const dx = s.mouseX - s.ringX
-      const dy = s.mouseY - s.ringY
+      // ── Velocity tracking ──
+      const dx = s.mouseX - s.posX
+      const dy = s.mouseY - s.posY
       s.velX = s.velX * (1 - VELOCITY_SMOOTH) + dx * VELOCITY_SMOOTH
       s.velY = s.velY * (1 - VELOCITY_SMOOTH) + dy * VELOCITY_SMOOTH
-      const vmag = Math.sqrt(s.velX * s.velX + s.velY * s.velY)
+      const velMag = Math.sqrt(s.velX * s.velX + s.velY * s.velY)
 
-      if (vmag > VELOCITY_THRESHOLD) {
-        const f = Math.min(1 + (vmag - VELOCITY_THRESHOLD) * 0.005, MAX_STRETCH)
-        s.stretchX = lerp(s.stretchX, f, LERP_STRETCH)
-        s.stretchY = lerp(s.stretchY, 1 / f, LERP_STRETCH)
-        s.rotation = lerp(s.rotation, Math.atan2(s.velY, s.velX) * (180 / Math.PI), 0.15)
+      // ── Stretch / skew ──
+      if (velMag > VELOCITY_THRESHOLD) {
+        const factor = Math.min(
+          1 + (velMag - VELOCITY_THRESHOLD) * 0.006,
+          MAX_STRETCH
+        )
+        const angle = Math.atan2(s.velY, s.velX) * (180 / Math.PI)
+        s.stretchX = lerp(s.stretchX, factor, LERP_STRETCH)
+        s.stretchY = lerp(s.stretchY, 1 / factor, LERP_STRETCH)
+        s.rotation = lerp(s.rotation, angle, 0.15)
       } else {
         s.stretchX = lerp(s.stretchX, 1, STRETCH_DECAY)
         s.stretchY = lerp(s.stretchY, 1, STRETCH_DECAY)
         s.rotation = lerp(s.rotation, 0, STRETCH_DECAY)
       }
 
-      // Size targets
-      const isText = s.style === "text"
-      const targetW = isText ? TEXT_RING_WIDTH  : SIZES[s.style][0] * (s.pressed ? 0.88 : 1)
-      const targetH = isText ? TEXT_RING_HEIGHT : SIZES[s.style][0] * (s.pressed ? 0.88 : 1)
-      const targetDot = SIZES[s.style][1] * (s.pressed ? 0.75 : 1)
-      s.ringW = lerp(s.ringW, targetW, LERP_SIZE)
-      s.ringH = lerp(s.ringH, targetH, LERP_SIZE)
-      s.dotSize = lerp(s.dotSize, targetDot, LERP_SIZE * 1.3)
+      // ── Size targets ──
+      const targetOuter = SIZES[s.style][0] * (s.pressed ? 0.85 : 1)
+      const targetInner = SIZES[s.style][1] * (s.pressed ? 0.85 : 1)
+      s.outerSize = lerp(s.outerSize, targetOuter, LERP_SIZE)
+      s.innerSize = lerp(s.innerSize, targetInner, LERP_SIZE * 1.2)
 
-      // Fill alpha
-      s.fillAlpha = lerp(s.fillAlpha, s.visible ? s.targetFillAlpha : 0, LERP_FILL)
+      // ── Opacity ──
+      const visOuter = s.visible ? s.targetOuterOp : 0
+      const visInner = s.visible ? s.targetInnerOp : 0
+      s.outerOp = lerp(s.outerOp, visOuter, LERP_OPACITY)
+      s.innerOp = lerp(s.innerOp, visInner, LERP_OPACITY * 1.5)
 
-      const globalOp = s.visible ? 1 : 0
-
-      if (ring) {
-        const hw = s.ringW / 2
-        const hh = s.ringH / 2
-        ring.style.transform =
-          `translate3d(${s.ringX - hw}px, ${s.ringY - hh}px, 0) ` +
+      // ── Apply to DOM ──
+      // Sizes are encoded as scale factors relative to fixed element dimensions.
+      // This keeps width/height constant — only transform (compositor-only) changes.
+      if (outer) {
+        const outerScale = s.outerSize / OUTER_BASE
+        outer.style.transform =
+          `translate3d(${s.posX - OUTER_BASE / 2}px, ${s.posY - OUTER_BASE / 2}px, 0) ` +
           `rotate(${s.rotation}deg) ` +
-          `scale3d(${s.stretchX}, ${s.stretchY}, 1)`
-        ring.style.width  = `${s.ringW}px`
-        ring.style.height = `${s.ringH}px`
-        ring.style.opacity = `${globalOp}`
-        ring.style.backgroundColor = ringColor(s.isDark, s.fillAlpha)
-        ring.style.borderColor = ringBorder(s.isDark)
-        ring.style.borderWidth = `${BORDERS[s.style]}px`
-        ring.style.borderRadius = isText ? "9999px" : RADII[s.style]
+          `scale3d(${outerScale * s.stretchX}, ${outerScale * s.stretchY}, 1)`
+        outer.style.opacity = `${s.outerOp}`
+
+        const isNav = s.style === "nav"
+        const isText = s.style === "text"
+        if (isNav || isText) {
+          outer.style.mixBlendMode = "normal"
+          outer.style.backgroundColor = s.isDark
+            ? "rgba(240, 240, 245, 0.06)"
+            : "rgba(26, 26, 46, 0.06)"
+          outer.style.borderColor = s.isDark
+            ? "rgba(240, 240, 245, 0.35)"
+            : "rgba(26, 26, 46, 0.35)"
+        } else {
+          outer.style.mixBlendMode = BLENDS[s.style]
+          outer.style.backgroundColor = "transparent"
+          outer.style.borderColor = "#ffffff"
+        }
       }
 
-      if (dot) {
-        const h = s.dotSize / 2
-        dot.style.transform = `translate3d(${s.dotX - h}px, ${s.dotY - h}px, 0)`
-        dot.style.width  = `${s.dotSize}px`
-        dot.style.height = `${s.dotSize}px`
-        dot.style.opacity = `${globalOp}`
-        dot.style.backgroundColor = dotColor(s.isDark)
+      if (inner) {
+        const innerScale = s.innerSize / INNER_BASE
+        inner.style.transform =
+          `translate3d(${s.posX - INNER_BASE / 2}px, ${s.posY - INNER_BASE / 2}px, 0) ` +
+          `scale3d(${innerScale * s.stretchX}, ${innerScale * s.stretchY}, 1)`
+        inner.style.opacity = `${s.innerOp}`
+
+        const isNav = s.style === "nav"
+        const isText = s.style === "text"
+        if (isNav || isText) {
+          inner.style.mixBlendMode = "normal"
+          inner.style.backgroundColor = s.isDark ? "#f0f0f5" : "#1a1a2e"
+        } else {
+          inner.style.mixBlendMode = BLENDS[s.style]
+          inner.style.backgroundColor = "#ffffff"
+        }
       }
 
       rafRef.current = requestAnimationFrame(tick)
     }
 
     rafRef.current = requestAnimationFrame(tick)
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
-  }, [])
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, []) // Empty deps — loop runs once, reads all from refs
 
-  // ─── Mouse events ────────────────────────────────────────────────────────
+  // ─── Event listeners (document-level, passive) ────────────────────
   useEffect(() => {
     const s = state.current
-    const onMove  = (e: MouseEvent) => { s.mouseX = e.clientX; s.mouseY = e.clientY; s.visible = true }
-    const onLeave = () => { s.visible = false }
-    const onEnter = () => { s.visible = true }
-    const onDown  = () => { s.pressed = true }
-    const onUp    = () => { s.pressed = false }
 
-    document.addEventListener("mousemove",  onMove,  { passive: true })
+    const onMove = (e: MouseEvent) => {
+      s.mouseX = e.clientX
+      s.mouseY = e.clientY
+      if (!s.visible) s.visible = true
+    }
+
+    const onLeave = () => {
+      s.visible = false
+    }
+
+    const onEnter = () => {
+      s.visible = true
+    }
+
+    const onDown = () => {
+      s.pressed = true
+    }
+
+    const onUp = () => {
+      s.pressed = false
+    }
+
+    document.addEventListener("mousemove", onMove, { passive: true })
     document.addEventListener("mouseleave", onLeave, { passive: true })
     document.addEventListener("mouseenter", onEnter, { passive: true })
-    document.addEventListener("mousedown",  onDown,  { passive: true })
-    document.addEventListener("mouseup",    onUp,    { passive: true })
+    document.addEventListener("mousedown", onDown, { passive: true })
+    document.addEventListener("mouseup", onUp, { passive: true })
 
     return () => {
-      document.removeEventListener("mousemove",  onMove)
+      document.removeEventListener("mousemove", onMove)
       document.removeEventListener("mouseleave", onLeave)
       document.removeEventListener("mouseenter", onEnter)
-      document.removeEventListener("mousedown",  onDown)
-      document.removeEventListener("mouseup",    onUp)
+      document.removeEventListener("mousedown", onDown)
+      document.removeEventListener("mouseup", onUp)
     }
   }, [])
 
   return (
     <>
-      {/* Trailing ring */}
+      {/* Outer ring — fixed at OUTER_BASE px; visual size driven by scale() only */}
       <div
-        ref={ringRef}
-        aria-hidden="true"
+        ref={outerRef}
         className="pointer-events-none fixed top-0 left-0 z-[10000] rounded-full"
         style={{
-          border: "1.5px solid rgba(20,20,30,0.55)",
+          border: "1.5px solid #ffffff",
           backgroundColor: "transparent",
-          width: SIZES.default[0],
-          height: SIZES.default[0],
+          mixBlendMode: "difference",
+          width: OUTER_BASE,
+          height: OUTER_BASE,
           opacity: 0,
-          willChange: "transform, opacity, width, height, border-radius",
+          willChange: "transform, opacity",
           transition: "none",
         }}
-      />
-      {/* Snap dot */}
-      <div
-        ref={dotRef}
         aria-hidden="true"
+      />
+      {/* Inner dot — fixed at INNER_BASE px; visual size driven by scale() only */}
+      <div
+        ref={innerRef}
         className="pointer-events-none fixed top-0 left-0 z-[10000] rounded-full"
         style={{
-          backgroundColor: "rgba(20,20,30,0.85)",
-          width: SIZES.default[1],
-          height: SIZES.default[1],
+          backgroundColor: "#ffffff",
+          mixBlendMode: "difference",
+          width: INNER_BASE,
+          height: INNER_BASE,
           opacity: 0,
-          willChange: "transform, opacity, width, height",
+          willChange: "transform, opacity",
           transition: "none",
         }}
+        aria-hidden="true"
       />
     </>
   )

@@ -196,13 +196,28 @@ function ApplyForm({ roleTitle, onClose }: { roleTitle: string; onClose: () => v
     e.preventDefault();
     if (!form.resume) { setErrorMsg('Please attach your resume (PDF).'); return; }
     setStatus('loading'); setErrorMsg('');
-    const fd = new FormData();
-    fd.append('role', roleTitle); fd.append('name', form.name); fd.append('email', form.email);
-    fd.append('phone', form.phone); fd.append('linkedin', form.linkedin);
-    fd.append('portfolio', form.portfolio); fd.append('whyJoin', form.whyJoin); fd.append('resume', form.resume);
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:      form.name,
+          email:     form.email,
+          phone:     form.phone,
+          portfolio: form.portfolio || form.linkedin,
+          message:   form.whyJoin,
+          position:  roleTitle,
+          formType:  'career',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Something went wrong.');
       setStatus('success');
-    }, 1500);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to submit. Please try again.';
+      setStatus('error');
+      setErrorMsg(msg);
+    }
   };
 
   if (status === 'success') {
@@ -766,13 +781,27 @@ function OpenApplicationSection() {
     e.preventDefault();
     if (!resume) { setErrorMsg('Please attach your resume (PDF).'); return; }
     setStatus('loading'); setErrorMsg('');
-    const fd = new FormData();
-    fd.append('role', 'Open Application'); fd.append('name', form.name); fd.append('email', form.email);
-    fd.append('phone', form.phone); fd.append('linkedin', ''); fd.append('portfolio', '');
-    fd.append('whyJoin', form.whatYouBuild); fd.append('resume', resume);
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:     form.name,
+          email:    form.email,
+          phone:    form.phone,
+          message:  form.whatYouBuild,
+          position: 'Open Application',
+          formType: 'career',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Something went wrong.');
       setStatus('success');
-    }, 1500);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to submit. Please try again.';
+      setStatus('error');
+      setErrorMsg(msg);
+    }
   };
 
   return (
