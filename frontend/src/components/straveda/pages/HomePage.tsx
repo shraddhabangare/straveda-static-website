@@ -115,32 +115,38 @@ const services: ServiceItem[] = [
 
 // ─── Service Card ─────────────────────────────────────────────────────────────
 
-function ServiceCard({ service, onNavigate }: { service: ServiceItem; onNavigate: (page: string) => void }) {
+function ServiceCard({ service, onNavigate, isDark }: { service: ServiceItem; onNavigate: (page: string) => void; isDark: boolean }) {
+  const bg     = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.70)';
+  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)';
+  const shadow = isDark ? '0 4px 24px rgba(0,0,0,0.30)' : '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)';
+
   return (
     <div
       className="svc-card relative flex h-full flex-col overflow-hidden rounded-[24px]"
       style={{
-        background: 'rgba(255,255,255,0.70)',
+        background: bg,
         backdropFilter: 'blur(16px) saturate(1.8)',
         WebkitBackdropFilter: 'blur(16px) saturate(1.8)',
-        border: '1px solid rgba(0,0,0,0.05)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+        border: `1px solid ${border}`,
+        boxShadow: shadow,
         transition: 'box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease',
         fontFamily: "'Space Grotesk', system-ui, sans-serif",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLDivElement;
         el.style.transform = 'translateY(-6px)';
-        el.style.borderColor = 'rgba(255,72,0,0.18)';
-        el.style.boxShadow = '0 8px 32px rgba(0,0,0,0.09), 0 0 0 1px rgba(255,72,0,0.14), 0 20px 40px rgba(255,72,0,0.08)';
+        el.style.borderColor = 'rgba(255,72,0,0.22)';
+        el.style.boxShadow = isDark
+          ? '0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,72,0,0.18)'
+          : '0 8px 32px rgba(0,0,0,0.09), 0 0 0 1px rgba(255,72,0,0.14), 0 20px 40px rgba(255,72,0,0.08)';
         const glow = el.querySelector('.svc-glow') as HTMLElement | null;
         if (glow) glow.style.opacity = '1';
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLDivElement;
         el.style.transform = '';
-        el.style.borderColor = 'rgba(0,0,0,0.05)';
-        el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)';
+        el.style.borderColor = border;
+        el.style.boxShadow = shadow;
         const glow = el.querySelector('.svc-glow') as HTMLElement | null;
         if (glow) glow.style.opacity = '0';
       }}
@@ -153,19 +159,19 @@ function ServiceCard({ service, onNavigate }: { service: ServiceItem; onNavigate
         <span className="mb-[14px] w-fit rounded-full px-[11px] py-[4px] text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: '#FF4800', background: 'rgba(255,72,0,0.09)', border: '1px solid rgba(255,72,0,0.15)' }}>
           {service.badge}
         </span>
-        <h3 className="text-[21px] font-bold leading-[1.2] tracking-[-0.035em]" style={{ color: '#1a1a2e' }}>
+        <h3 className="text-[21px] font-bold leading-[1.2] tracking-[-0.035em] text-gray-900 dark:text-white">
           {service.title}
         </h3>
       </div>
 
       {/* Divider */}
-      <div className="mx-[26px] my-[20px] h-px" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.03), rgba(0,0,0,0.06))' }} />
+      <div className="mx-[26px] my-[20px] h-px" style={{ background: isDark ? 'rgba(255,255,255,0.07)' : 'linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.03), rgba(0,0,0,0.06))' }} />
 
       {/* Bullet list */}
       <div className="flex-1 px-[26px]">
         <ul className="flex flex-col gap-[11px]">
           {service.bullets.map((bullet, i) => (
-            <li key={i} className="flex items-start gap-[10px] text-[13.5px] font-normal leading-[1.5]" style={{ color: '#374151' }}>
+            <li key={i} className="flex items-start gap-[10px] text-[13.5px] font-normal leading-[1.5] text-gray-700 dark:text-gray-300">
               <span className="mt-[8px] h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: '#FF4800', boxShadow: '0 0 4px rgba(255,72,0,0.4)' }} />
               <span>{bullet}</span>
             </li>
@@ -400,17 +406,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         id="section-services"
         className="py-12 md:py-24 px-6 section-glow-top"
         style={{
-          background: `
-            radial-gradient(at 15% 80%, rgba(255,72,0,0.09) 0%, transparent 50%),
-            radial-gradient(at 85% 15%, rgba(43,35,88,0.10) 0%, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(255,72,0,0.04) 0%, transparent 60%),
-            #e8e8f0
-          `,
-          borderTop: '1px solid rgba(0,0,0,0.06)',
+          background: isDark
+            ? `radial-gradient(at 15% 80%, rgba(255,72,0,0.06) 0%, transparent 50%),
+               radial-gradient(at 85% 15%, rgba(43,35,88,0.08) 0%, transparent 50%),
+               #0a0a14`
+            : `radial-gradient(at 15% 80%, rgba(255,72,0,0.09) 0%, transparent 50%),
+               radial-gradient(at 85% 15%, rgba(43,35,88,0.10) 0%, transparent 50%),
+               radial-gradient(at 50% 50%, rgba(255,72,0,0.04) 0%, transparent 60%),
+               #e8e8f0`,
+          borderTop: isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.06)',
         }}
       >
         <div className="mx-auto max-w-[1280px]">
-          {/* Header */}
+          {/* Header — Straveda Standard */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -418,10 +426,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             transition={{ duration: 0.8, ease }}
             className="mb-8 md:mb-14"
           >
-            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>WHAT WE BUILD</p>
-            <div className="flex items-center gap-5">
-              <div className="hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '36px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.2rem, 2.6vw, 2.5rem)', lineHeight: 1.0, letterSpacing: '-1.5px', fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
+            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: '#FF4800' }}>WHAT WE BUILD</p>
+            <div className="flex items-start gap-6">
+              <div className="mt-1 hidden lg:block flex-shrink-0 rounded-full" style={{ width: '3px', height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.0, letterSpacing: '-2px' }}>
                 One Goal: Systems That Run Without You.
               </h2>
             </div>
@@ -437,7 +445,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           >
             {services.map((service, i) => (
               <motion.div key={i} variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }} className="h-full">
-                <ServiceCard service={service} onNavigate={onNavigate} />
+                <ServiceCard service={service} onNavigate={onNavigate} isDark={isDark} />
               </motion.div>
             ))}
           </motion.div>

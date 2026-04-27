@@ -4,8 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, X, User, Clock } from 'lucide-react';
 import { toast } from 'sonner';
-import TextReveal from '@/components/straveda/TextReveal';
-import { useScrollGradient } from '@/hooks/useScrollGradient';
+import PageHeader from '@/components/straveda/PageHeader';
 
 const categories = ['All', 'Automation', 'Custom Software', 'AI Strategy', 'Systems', 'Web Development'] as const;
 type FilterCategory = (typeof categories)[number];
@@ -236,8 +235,6 @@ export default function InsightsPage() {
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
   const [activeTopic, setActiveTopic] = useState<string>('All');
-  const heroScrolled = useScrollGradient(100);
-
   const filteredPosts = useMemo(() => {
     const topic = activeTopic === 'All' ? 'All' : activeTopic;
     if (topic === 'All') return posts;
@@ -260,37 +257,13 @@ export default function InsightsPage() {
   return (
     <div className="bg-white dark:bg-[#0a0a14] min-h-screen">
       {/* HERO */}
-      <section className="relative flex items-center justify-center bg-white dark:bg-[#0a0a14]" style={{ minHeight: '50vh' }}>
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease }}
-            className="text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-6"
-          >
-            Insights & Perspectives
-          </motion.p>
-          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
-            style={{ transitionDuration: '0.6s' }}
-          >
-            <TextReveal delay={0.2} stagger={0.08}>Enterprise thinking for modern organizations.</TextReveal>
-          </h1>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.6, ease }}
-            style={{ transformOrigin: 'left center' }}
-            className="h-[2px] w-16 bg-[#FF4800] mx-auto mt-8"
+      <section className="relative bg-white dark:bg-[#0a0a14] px-6 pt-32 pb-20 border-b border-black/[0.06] dark:border-white/[0.06]">
+        <div className="max-w-5xl mx-auto">
+          <PageHeader
+            eyebrow="Insights & Perspectives"
+            title="Enterprise thinking for modern organizations."
+            subtitle="Strategy, architecture, and management insights from the Straveda team."
           />
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8, ease }}
-            className="text-[#6b7280] dark:text-[#d1d5db] text-lg md:text-xl mt-6"
-          >
-            Strategy, architecture, and management insights from the Straveda
-            team.
-          </motion.p>
         </div>
       </section>
 

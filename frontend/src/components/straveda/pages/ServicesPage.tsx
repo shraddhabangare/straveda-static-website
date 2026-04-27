@@ -23,6 +23,7 @@ import {
 import MagneticButton from '@/components/straveda/MagneticButton';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
 import ServicesHoverModal from '@/components/straveda/ServicesHoverModal';
+import PageHeader from '@/components/straveda/PageHeader';
 
 /* ------------------------------------------------------------------ */
 /* Component-level Styles                                             */
@@ -160,36 +161,14 @@ const services: ServiceBlockData[] = [
 
 function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center justify-center bg-white dark:bg-[#030303] px-6 pt-32 pb-16 text-center overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="flex flex-col items-center"
-      >
-        <span className="mb-8 text-[11px] font-bold uppercase tracking-[0.5em] text-[#FF4800]">
-          Our Expertise
-        </span>
-        
-        <div className="relative max-w-5xl pl-10 md:pl-16">
-          <div className="absolute left-0 top-0 h-full w-[2px] bg-[#FF4800]" />
-          
-          <h1 
-            className="masked-title text-left font-normal"
-            style={{ 
-              fontSize: 'clamp(1.5rem, 4vw, 2.8rem)', 
-              lineHeight: 1.1, 
-              letterSpacing: '-2.05px' 
-            }}
-          >
-            Enterprise Software & AI Automation Services
-          </h1>
-          <p className="mt-4 text-left text-lg tracking-tight text-[#6b7280] dark:text-[#9ca3af] max-w-2xl">
-            We build high-performance infrastructure and intelligent automation systems 
-            designed for the next generation of enterprise growth.
-          </p>
-        </div>
-      </motion.div>
+    <section className="relative bg-white dark:bg-[#0a0a14] px-6 pt-32 pb-20 overflow-hidden border-b border-black/[0.06] dark:border-white/[0.06]">
+      <div className="mx-auto max-w-5xl">
+        <PageHeader
+          eyebrow="Our Expertise"
+          title="Enterprise Software & AI Automation Services"
+          subtitle="We build high-performance infrastructure and intelligent automation systems designed for the next generation of enterprise growth."
+        />
+      </div>
     </section>
   );
 }
@@ -208,7 +187,7 @@ function ServiceBlock({ service, index }: { service: ServiceBlockData; index: nu
     <motion.section
       ref={containerRef}
       className={`relative overflow-hidden px-6 py-24 lg:px-16 ${
-        isEven ? 'bg-white dark:bg-[#030303]' : 'bg-[#fcfcfd] dark:bg-[#080808]'
+        isEven ? 'bg-white dark:bg-[#0a0a14]' : 'bg-[#fcfcfd] dark:bg-[#0d0d1a]'
       }`}
     >
       <motion.span 
@@ -297,20 +276,20 @@ function WhyStravedaSection() {
   ];
 
   return (
-    <section className="relative bg-white px-6 pb-24 dark:bg-[#030303]">
+    <section className="relative bg-white dark:bg-[#0a0a14] px-6 pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
           {whyCards.map((card, i) => (
-            <motion.div 
-              key={i} 
+            <motion.div
+              key={i}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-card rounded-2xl p-8 transition-all hover:border-[#FF4800]/20"
+              className="glass-card flex flex-col h-full rounded-2xl p-8"
             >
               <div className="mb-6">{card.icon}</div>
-              <h4 className="text-xl font-normal tracking-[-0.02em] text-[#1a1a2e] dark:text-white">{card.title}</h4>
-              <p className="mt-4 text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
+              <h4 className="text-xl font-normal tracking-[-0.02em] text-gray-900 dark:text-white">{card.title}</h4>
+              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">{card.body}</p>
             </motion.div>
           ))}
         </div>
@@ -360,7 +339,7 @@ function TechStackSection() {
   ];
 
   return (
-    <section className="bg-[#fcfcfd] py-24 dark:bg-[#080808]">
+    <section className="bg-white dark:bg-[#0a0a14] py-24 border-t border-black/[0.06] dark:border-white/[0.06]">
       <div className="mx-auto max-w-6xl px-6 text-center">
         <h2
           className="masked-title mb-4 font-normal"
@@ -377,7 +356,7 @@ function TechStackSection() {
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#FF4800]">{category.label}</p>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {category.items.map((tech, i) => (
-                  <div key={i} className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-transparent bg-white p-8 shadow-sm transition-all hover:border-[#FF4800]/10 dark:bg-white/[0.03]">
+                  <div key={i} className="glass-card flex flex-col items-center justify-center gap-4 rounded-2xl p-8">
                     {tech.icon}
                     <span className="text-sm font-bold uppercase tracking-widest text-[#1a1a2e] dark:text-white">{tech.name}</span>
                   </div>
@@ -397,7 +376,7 @@ function TechStackSection() {
 
 export default function ServicesPage({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
-    <main className="min-h-screen bg-white dark:bg-[#030303]">
+    <main className="min-h-screen bg-white dark:bg-[#0a0a14]">
       <ServicesPageStyles />
       <HeroSection />
       <WhyStravedaSection />
