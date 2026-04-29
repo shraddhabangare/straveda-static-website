@@ -8,6 +8,7 @@ import {
   Quote, CheckCircle2
 } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
+import HorizontalCarousel from '@/components/straveda/HorizontalCarousel';
 
 /* ─────────────────────────────────────────────────────────────────────── */
 /* Styles & Brand Constants                                                */
@@ -51,21 +52,22 @@ const fadeUp = {
 
 function HeroSection() {
   return (
-    <section className="relative bg-[#f5f5f0] dark:bg-[#030303] pt-24 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative bg-[#f5f5f0] dark:bg-[#030303] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div {...fadeUp}>
-          <div className="flex items-center gap-3 mb-8">
-            <span className="h-[1px] w-8 bg-[#FF4800]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">
-              About Straveda — Pune, India
-            </span>
-          </div>
-          <div className="relative pl-8 md:pl-12">
-            <div className="absolute left-0 top-0 h-full w-[2px] bg-[#FF4800]" />
-            <h1 className="masked-title font-normal uppercase" style={{ fontSize: 'clamp(2rem, 7vw, 4.8rem)', lineHeight: 1.1, letterSpacing: '-2.05px' }}>
-              We Get It. <br /> Because We've Lived It.
+          <div className="relative pl-8 md:pl-14">
+            <div className="absolute left-0 top-0 h-full w-[3px] rounded-full" style={{ background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">
+                About Straveda — Pune, India
+              </span>
+            </div>
+            <h1 className="font-bold uppercase" style={{ fontSize: 'clamp(2.2rem, 7vw, 5rem)', lineHeight: 1.05, letterSpacing: '-2.05px' }}>
+              <span className="text-[#1a1a2e] dark:text-white">We Get It.</span><br />
+              <span className="text-[#1a1a2e] dark:text-white">Because </span>
+              <span style={{ color: '#FF4800' }}>We've Lived It.</span>
             </h1>
-            <p className="mt-6 md:mt-8 text-base md:text-xl text-[#666] dark:text-[#9ca3af] max-w-3xl leading-relaxed text-left">
+            <p className="mt-6 md:mt-8 text-base md:text-[17px] text-[#666] dark:text-[#9ca3af] max-w-2xl leading-relaxed">
               A small team of operators and builders who've been through the chaos of scaling.
               We've felt the frustration of bloated software, long implementation timelines, and vendors who don't understand your business.
               So we built Straveda as the antidote.
@@ -92,35 +94,42 @@ const chaosItems = [
 const clarityItems = [
   "One platform, built for how you actually work.",
   "Reports run overnight. Your Fridays are yours again.",
-  "Every decision backed by live data — instantly.",
+  "Every decision backed by live data instantly.",
   "You're live in 5 weeks. Paying back in 90 days.",
   "Your best hire is doing their best work.",
 ];
 
 function StorySection() {
   return (
-    <section className="bg-[#f5f5f0] dark:bg-[#030303] py-24 md:py-36 px-6 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
+    <section className="bg-[#f5f5f0] dark:bg-[#030303] py-24 md:py-36 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
       {/* Grid Background Overlay */}
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none
         [background-image:linear-gradient(#000_1px,transparent_1px),linear-gradient(90deg,#000_1px,transparent_1px)]
         dark:[background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)]
         [background-size:50px_50px]" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
         {/* TOP: Section Header */}
-        <motion.div {...fadeUp} className="mb-12 md:mb-16 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
+        <motion.div {...fadeUp} className="mb-14 md:mb-20 text-center">
+          <div className="flex items-center justify-center gap-3 mb-8">
             <span className="h-[1px] w-6 bg-[#FF4800]" />
             <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">Our Story</span>
             <span className="h-[1px] w-6 bg-[#FF4800]" />
           </div>
-          <h2 className="masked-title font-normal uppercase leading-tight mx-auto"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-2px' }}>
-            Two paths. One choice.
+
+          {/* Big highlighted heading */}
+          <h2 className="font-black uppercase leading-[0.95] mx-auto"
+            style={{ fontSize: 'clamp(3rem, 9vw, 7.5rem)', letterSpacing: '-3px' }}>
+            <span className="block text-[#1a1a2e] dark:text-white">Two Paths.</span>
+            <span className="block" style={{ color: '#FF4800', textShadow: '0 0 80px rgba(255,72,0,0.25)' }}>One Choice.</span>
           </h2>
-          <p className="mt-6 text-[#888] text-[14px] md:text-[15px] leading-[1.7] max-w-2xl mx-auto">
-            Every growing company eventually hits the same wall. Too many tools. Spreadsheets that don&apos;t sync. Your best people spending Friday afternoons doing work that shouldn&apos;t exist. You don&apos;t need another vendor; you need someone who actually understands the problem. We do. We&apos;ve built companies. We&apos;ve felt the frustration of paying for five tools when you really need one well-designed system that your team understands. That&apos;s why Straveda is different — building AI-powered systems that replace chaos with structure.
+
+          {/* Accent line under heading */}
+          <div className="mx-auto mt-6 mb-8 h-[3px] w-20 rounded-full" style={{ background: 'linear-gradient(90deg, #FF4800, rgba(255,72,0,0.2))' }} />
+
+          <p className="text-[#888] dark:text-[#9ca3af] text-[15px] md:text-[16px] leading-[1.75] max-w-2xl mx-auto">
+            Every growing company eventually hits the same wall. Too many tools. Spreadsheets that don&apos;t sync. Your best people spending Friday afternoons doing work that shouldn&apos;t exist. You don&apos;t need another vendor; you need someone who actually understands the problem. We do. We&apos;ve built companies. We&apos;ve felt the frustration of paying for five tools when you really need one well designed system that your team understands. That&apos;s why Straveda is different building AI powered systems that replace chaos with structure.
           </p>
         </motion.div>
 
@@ -188,30 +197,30 @@ function StorySection() {
 
 const principles = [
   { title: "Automation First", desc: "Before we build feature one, we ask: 'What can we eliminate?' We prune scope then automate what's left.", icon: <Zap size={20} /> },
-  { title: "You Own Everything", desc: "Full code ownership. Complete documentation. Zero vendor lock-in. If we disappear, your team runs the system.", icon: <Lock size={20} /> },
+  { title: "You Own Everything", desc: "Full code ownership. Complete documentation. Zero vendor lock in. If we disappear, your team runs the system.", icon: <Lock size={20} /> },
   { title: "Speed Over Perfection", desc: "Shipping fast beats planning perfectly. Weekly sprints. Friday builds. Working software by week 4.", icon: <Clock size={20} /> },
   { title: "Transparency", desc: "No black boxes. No 'trust us' architecture. We document as we build, not after. You know the 'why'.", icon: <Eye size={20} /> },
   { title: "Priced for ROI", desc: "If a project doesn't pay for itself in 90 days, we don't build it. We'd rather lose the deal than waste your time.", icon: <TrendingUp size={20} /> },
-  { title: "Senior Execution", desc: "We cap engagements so you get senior attention on every build—not kickoff with partners and delivery from juniors.", icon: <Users size={20} /> },
+  { title: "Senior Execution", desc: "We cap engagements so you get senior attention on every build not kickoff with partners and delivery from juniors.", icon: <Users size={20} /> },
 ];
 
 function PrinciplesSection() {
   return (
-    <section className="bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="relative pl-8 mb-10 md:mb-20">
           <div className="absolute left-0 top-0 h-full w-[2px] bg-[#FF4800]" />
           <h2 className="masked-title text-3xl md:text-4xl font-normal uppercase tracking-[-1.5px]">Our operating principles.</h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <HorizontalCarousel cols={3} size="md">
           {principles.map((p, i) => (
-            <motion.div key={i} {...fadeUp} className="group glass-card p-6 md:p-10 rounded-2xl hover:border-[#FF4800]/20 transition-all">
+            <motion.div key={i} {...fadeUp} className="group glass-card p-6 md:p-10 rounded-2xl hover:border-[#FF4800]/20 transition-all active:scale-95 h-full">
               <div className="text-[#FF4800] mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">{p.icon}</div>
-              <h4 className="text-black dark:text-white text-lg md:text-xl font-normal mb-3 md:mb-4 tracking-tight">{p.title}</h4>
+              <h4 className="text-black dark:text-white text-lg md:text-xl font-bold mb-3 md:mb-4 tracking-tight">{p.title}</h4>
               <p className="text-[#666] dark:text-[#8a8a8a] text-sm leading-relaxed">{p.desc}</p>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
       </div>
     </section>
   );
@@ -259,8 +268,8 @@ function AnimatedStatValue({ stat }: { stat: typeof stats[0] }) {
 
 function StatsSection() {
   return (
-    <section className="bg-[#030303] py-16 md:py-32 px-6 overflow-hidden border-y border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-[#030303] py-16 md:py-32 overflow-hidden border-y border-white/5">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 md:mb-16">
           <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#FF4800] mb-4 block">
             By The Numbers
@@ -325,7 +334,7 @@ const testimonials = [
     role: "Operations Director"
   },
   {
-    quote: "Our CRM was killing us—it didn't match our sales process. Straveda built us a custom CRM in 8 weeks. Team adoption was instant.",
+    quote: "Our CRM was killing us it didn't match our sales process. Straveda built us a custom CRM in 8 weeks. Team adoption was instant.",
     impact: "3x sales velocity / 90% team adoption",
     company: "SaaS Startup, Bangalore",
     role: "Founder"
@@ -340,24 +349,24 @@ const testimonials = [
 
 function ResultsSection() {
   return (
-    <section className="bg-white dark:bg-[#030303] py-16 md:py-32 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-white dark:bg-[#030303] py-16 md:py-32">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="relative pl-8 mb-10 md:mb-20">
           <div className="absolute left-0 top-0 h-full w-[2px] bg-[#FF4800]" />
           <h2 className="masked-title text-3xl md:text-4xl font-normal uppercase tracking-[-1.5px]">Results that speak.</h2>
         </div>
-        <div className="grid lg:grid-cols-3 gap-8 md:gap-10">
+        <HorizontalCarousel cols={3} size="md">
           {testimonials.map((t, i) => (
-            <div key={i} className="flex flex-col">
+            <div key={i} className="flex flex-col glass-card rounded-2xl p-6 md:p-8 h-full active:scale-95 transition-transform">
               <Quote className="text-[#FF4800]/20 mb-6" size={36} />
-              <p className="text-[#555] dark:text-[#9ca3af] text-base md:text-lg italic leading-relaxed mb-8 flex-grow">"{t.quote}"</p>
+              <p className="text-[#555] dark:text-[#9ca3af] text-base md:text-lg italic leading-relaxed mb-8 flex-grow">&ldquo;{t.quote}&rdquo;</p>
               <div className="border-t border-black/5 dark:border-white/5 pt-6">
                 <p className="text-[#FF4800] text-[10px] font-bold uppercase tracking-widest mb-1">{t.impact}</p>
                 <p className="text-black dark:text-white text-xs font-medium uppercase tracking-widest opacity-60">— {t.role}, {t.company}</p>
               </div>
             </div>
           ))}
-        </div>
+        </HorizontalCarousel>
       </div>
     </section>
   );
@@ -369,13 +378,13 @@ function ResultsSection() {
 
 const roadmap = [
   { step: "01", title: "Book a Strategy Call", meta: "30 min, free", desc: "We audit your operations and biggest bottlenecks, recommend what to build first.", cta: "Book Now" },
-  { step: "02", title: "Get a Custom Proposal", meta: "48 hours", desc: "Fixed-price quote for your project. Timeline and success metrics included.", cta: "Request Proposal" },
+  { step: "02", title: "Get a Custom Proposal", meta: "48 hours", desc: "Fixed Price quote for your project. Timeline and success metrics included.", cta: "Request Proposal" },
   { step: "03", title: "Start Building", meta: "4–6 weeks", desc: "Weekly sprints with visible progress. Go live and reclaim your time.", cta: "Book a Strategy Call" },
 ];
 
 function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
-    <section className="relative bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32 px-6 border-t border-black/5 dark:border-white/5 overflow-hidden">
+    <section className="relative bg-[#fcfcf7] dark:bg-[#030303] py-16 md:py-32 border-t border-black/5 dark:border-white/5 overflow-hidden">
       {/* Background blobs — give backdrop-blur something to work against */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#FF4800]/10 blur-3xl" />
@@ -383,14 +392,14 @@ function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void 
         <div className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-[#FF4800]/8 blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="masked-title text-3xl md:text-4xl font-normal uppercase tracking-tighter mb-10 md:mb-20">Let's build something that matters.</h2>
-        <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-20">
+        <HorizontalCarousel cols={3} size="md" className="mb-12 md:mb-20">
           {roadmap.map((r, i) => (
             <motion.div
               key={i}
               {...fadeUp}
-              className="flex flex-col p-6 md:p-10 rounded-3xl border border-white/80 dark:border-white/10 bg-white/50 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.06),0_1px_2px_rgba(255,255,255,0.8)_inset] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+              className="flex flex-col p-6 md:p-10 rounded-3xl border border-white/80 dark:border-white/10 bg-white/50 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.06),0_1px_2px_rgba(255,255,255,0.8)_inset] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] active:scale-95 transition-transform h-full"
             >
               <div className="flex justify-end items-start mb-8 md:mb-10">
                 <span className="text-[10px] font-bold uppercase text-[#FF4800] bg-[#FF4800]/10 px-3 py-1 rounded-full">{r.meta}</span>
@@ -407,7 +416,7 @@ function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void 
               )}
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
         <div className="flex flex-col items-center">
           <MagneticButton>
             <button

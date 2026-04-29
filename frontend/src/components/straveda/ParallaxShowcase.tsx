@@ -28,9 +28,9 @@ const ease = [0.4, 0, 0.2, 1] as const;
 
 const featureCards = [
   { title: 'Enterprise Grade', icon: Shield,       description: 'Built for mission-critical workloads at scale' },
-  { title: 'Open Standards',   icon: Code,         description: 'No vendor lock-in, maximum flexibility' },
+  { title: 'Open Standards',   icon: Code,         description: 'No vendor lock in, maximum flexibility' },
   { title: 'Agile Delivery',   icon: Zap,          description: 'Iterative approach with rapid, measurable results' },
-  { title: '24/7 Support',     icon: Clock,        description: 'Round-the-clock enterprise support coverage' },
+  { title: '24/7 Support',     icon: Clock,        description: 'Round the clock enterprise support coverage' },
   { title: 'Cost Effective',   icon: DollarSign,   description: 'Maximum ROI per dollar invested' },
   { title: 'Proven Results',   icon: TrendingUp,   description: '99.9% uptime across all deployments' },
 ];

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, X, User, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import PageHeader from '@/components/straveda/PageHeader';
+import HorizontalCarousel from '@/components/straveda/HorizontalCarousel';
 
 const categories = ['All', 'Automation', 'Custom Software', 'AI Strategy', 'Systems', 'Web Development'] as const;
 type FilterCategory = (typeof categories)[number];
@@ -22,10 +23,10 @@ const featuredPost = {
   author: { name: 'Straveda Team', title: 'AI Automation & Custom Software' },
   fullContent: [
     'Most growing companies don\'t know where their team\'s time actually goes. You hire smart people to drive growth. Instead, they spend 40% of their time on work that could be automated, doesn\'t require human judgment, repeats the same way every time, and kills their momentum.',
-    'Manual work is invisible. It lives in spreadsheets that sync data between tools, email follow-up sequences that someone sends manually, data entry that could be automated, status meetings that could be a dashboard, and approvals that ping-pong between people. None of it shows up as a discrete "job." So it gets ignored.',
-    'Step 1: Do a Time Audit (30 min). Ask your top 3 people: "Walk me through your day. Where does your time go?" You\'ll hear: "I spend 2 hours a day manually qualifying leads", "I copy data from our order system into accounting every afternoon", "I send the same check-in email to inactive customers." Write it all down.',
+    'Manual work is invisible. It lives in spreadsheets that sync data between tools, email follow up sequences that someone sends manually, data entry that could be automated, status meetings that could be a dashboard, and approvals that ping pong between people. None of it shows up as a discrete "job." So it gets ignored.',
+    'Step 1: Do a Time Audit (30 min). Ask your top 3 people: "Walk me through your day. Where does your time go?" You\'ll hear: "I spend 2 hours a day manually qualifying leads", "I copy data from our order system into accounting every afternoon", "I send the same check in email to inactive customers." Write it all down.',
     'Step 2: Calculate the Cost. If your top person spends 2 hours/day on manual qualifying: 2 hours × 20 working days = 40 hours/month. 40 hours × ₹500/hour = ₹20,000/month in lost capacity. ₹20,000 × 12 = ₹2.4L/year. That\'s just one person, one process. Most companies have 3–5 of these.',
-    'If you automate just your top 3 time-wasters, you reclaim 80–120 hours/month. That\'s 2–3 full-time people\'s worth of capacity. No hiring needed. Costs ₹5L–₹15L to build. Pays for itself in months. Book a strategy call and we\'ll run this audit with you in 30 minutes.',
+    'If you automate just your top 3 time wasters, you reclaim 80–120 hours/month. That\'s 2–3 full-time people\'s worth of capacity. No hiring needed. Costs ₹5L–₹15L to build. Pays for itself in months. Book a strategy call and we\'ll run this audit with you in 30 minutes.',
   ],
 };
 
@@ -33,33 +34,33 @@ const posts = [
   {
     category: 'CUSTOM SOFTWARE',
     filterCategory: 'Custom Software' as FilterCategory,
-    title: 'Custom CRM vs. Salesforce: When Off-the-Shelf Doesn\'t Fit',
+    title: 'Custom CRM vs. Salesforce: When Off the Shelf Doesn\'t Fit',
     date: 'March 2025',
     excerpt:
-      'Salesforce works great — until it doesn\'t. Here\'s how to decide when a custom CRM actually saves you money.',
+      'Salesforce works great until it doesn\'t. Here\'s how to decide when a custom CRM actually saves you money.',
     readTime: '5 min read',
     author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
       'Most businesses start with Salesforce or HubSpot because they\'re fast to set up and everyone knows them. That\'s a legitimate reason. But after 12-18 months, a pattern emerges: your team spends more time working around the CRM than inside it. Custom fields that don\'t quite fit. Automations that need 3 Zapier steps to do something that should be one click. Licensing costs that climb as your team grows.',
-      'A custom CRM built for your specific sales process isn\'t a luxury — it\'s often cheaper over a 3-year horizon. When you own the code, you pay for hosting (a few hundred dollars a month) instead of per-seat licenses. When your process changes, you change the software in days, not months of Salesforce consultant time.',
-      'The decision comes down to three questions: Does your sales or operations process have more than 5 custom stages or non-standard workflows? Do you pay more than ₹2L/month in SaaS licenses across your CRM and adjacent tools? Are you losing data fidelity because your CRM can\'t model your actual business? If the answer to two of three is yes, it\'s time to run the numbers on a custom build.',
-      'At Straveda, we\'ve built CRMs that replace Salesforce for businesses at 20-200 person scale. The typical project runs 6-10 weeks and pays for itself within 18 months on licensing savings alone — before you count the productivity gains from software that actually fits.',
+      'A custom CRM built for your specific sales process isn\'t a luxury  it\'s often cheaper over a 3 year horizon. When you own the code, you pay for hosting (a few hundred dollars a month) instead of per seat licenses. When your process changes, you change the software in days, not months of Salesforce consultant time.',
+      'The decision comes down to three questions: Does your sales or operations process have more than 5 custom stages or non standard workflows? Do you pay more than ₹2L/month in SaaS licenses across your CRM and adjacent tools? Are you losing data fidelity because your CRM can\'t model your actual business? If the answer to two of three is yes, it\'s time to run the numbers on a custom build.',
+      'At Straveda, we\'ve built CRMs that replace Salesforce for businesses at 20 to 200 person scale. The typical project runs 6 to 10 weeks and pays for itself within 18 months on licensing savings alone before you count the productivity gains from software that actually fits.',
     ],
   },
   {
     category: 'AI STRATEGY',
     filterCategory: 'AI Strategy' as FilterCategory,
-    title: 'AI for Your Business: The ROI-First Framework',
+    title: 'AI for Your Business: The ROI First Framework',
     date: 'February 2025',
     excerpt:
       'Most AI projects fail not because the technology doesn\'t work, but because nobody defined what "working" means.',
     readTime: '6 min read',
-    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
+    author: { name: 'Radhika Tak', title: 'Founder, Straveda Tech' },
     fullContent: [
       'AI implementation fails in a predictable way: leadership sees a demo, gets excited, approves a pilot, and 6 months later the team is still "experimenting." No production traffic. No metrics. No clear owner. The technology worked fine — the project management didn\'t.',
-      'The ROI-First Framework flips the sequence. Before writing a line of code, you answer three questions: What specific human decision or action is this AI replacing or augmenting? What\'s the cost of that decision today in time, money, or errors? What does success look like in the first 30 days of production use? If you can\'t answer all three, the project isn\'t ready to start.',
+      'The ROI First Framework flips the sequence. Before writing a line of code, you answer three questions: What specific human decision or action is this AI replacing or augmenting? What\'s the cost of that decision today in time, money, or errors? What does success look like in the first 30 days of production use? If you can\'t answer all three, the project isn\'t ready to start.',
       'The highest-ROI AI applications we see in small and mid-market businesses are not the glamorous ones. They\'re customer support triage that routes 60% of tickets without human review. Lead qualification that scores inbound inquiries before a salesperson picks them up. Document processing that turns a 20-minute manual task into a 30-second automated one. Unglamorous, measurable, and compounding.',
-      'Our standard engagement starts with a 2-hour audit of your current operations to find the highest-leverage AI insertion points. Most businesses have 3-5 automation opportunities that pay for the entire engagement within 90 days. We build those first, then expand based on what the data shows.',
+      'Our standard engagement starts with a 2-hour audit of your current operations to find the highest leverage AI insertion points. Most businesses have 3-5 automation opportunities that pay for the entire engagement within 90 days. We build those first, then expand based on what the data shows.',
     ],
   },
   {
@@ -70,12 +71,12 @@ const posts = [
     excerpt:
       'The companies winning right now ship in weeks, not quarters. Here\'s the operational system behind that.',
     readTime: '5 min read',
-    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
+    author: { name: 'Radhika Tak', title: 'Founder, Straveda Tech' },
     fullContent: [
       'There\'s a myth that quality and speed are in tension. They\'re not — but "perfection" and speed are. Perfection is a moving target defined by hypothetical future users. Quality is a baseline defined by your actual users today. The companies that ship fast have learned to build for quality without chasing perfection.',
-      'The operational system behind fast shipping has a few non-negotiable components: a strict scope boundary (what is and is not in v1), automated testing that catches regressions without slowing deploys, and a weekly ship cadence that forces prioritization decisions. When you commit to shipping every week, you can\'t let perfect be the enemy of shipped.',
+      'The operational system behind fast shipping has a few non negotiable components: a strict scope boundary (what is and is not in v1), automated testing that catches regressions without slowing deploys, and a weekly ship cadence that forces prioritization decisions. When you commit to shipping every week, you can\'t let perfect be the enemy of shipped.',
       'At Straveda, our standard engagement includes a deployment pipeline from day one. By week 2, something is in production — even if it\'s just a staging environment with the core data model. By week 4, real users are touching real software. This isn\'t recklessness; it\'s feedback compression. Every week you\'re not in production is a week you\'re building on assumptions.',
-      'The automation layer is what makes this sustainable. Automated tests, automated deployments, automated monitoring — these aren\'t nice-to-haves for a fast team, they\'re the infrastructure that allows speed without chaos. Without them, fast shipping becomes fast breaking. With them, your team spends time building features, not firefighting.',
+      'The automation layer is what makes this sustainable. Automated tests, automated deployments, automated monitoring — these aren\'t nice to haves for a fast team, they\'re the infrastructure that allows speed without chaos. Without them, fast shipping becomes fast breaking. With them, your team spends time building features, not firefighting.',
     ],
   },
   {
@@ -86,11 +87,11 @@ const posts = [
     excerpt:
       'Your CRM says one thing, your spreadsheet says another, your ops team has a third number. Here\'s how to fix it.',
     readTime: '6 min read',
-    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
+    author: { name: 'Radhika Tak', title: 'Founder, Straveda Tech' },
     fullContent: [
       'Data silos aren\'t a storage problem — they\'re a trust problem. When the same metric shows different numbers in different systems, your team stops trusting any of them and falls back on gut feel and tribal knowledge. The result is decisions made on the loudest voice in the room, not the best data.',
       'The root cause is usually fragmented tooling accumulated over time: a CRM for sales, a separate project management tool for delivery, spreadsheets for finance, WhatsApp threads for customer communication. Each tool has its own data model, its own export format, its own definition of "customer" or "deal" or "revenue." Reconciling them manually is a part-time job for someone on your team.',
-      'Building one source of truth doesn\'t mean replacing all your tools — it means creating a central data layer that pulls from each tool and enforces a single definition for shared concepts. A PostgreSQL database with automated sync jobs, a simple dashboard showing the metrics that matter, and a clear ownership model for data quality. This is a 4-6 week build, not a multi-year ERP implementation.',
+      'Building one source of truth doesn\'t mean replacing all your tools — it means creating a central data layer that pulls from each tool and enforces a single definition for shared concepts. A PostgreSQL database with automated sync jobs, a simple dashboard showing the metrics that matter, and a clear ownership model for data quality. This is a 4-6 week build, not a multi year ERP implementation.',
       'The businesses we\'ve helped with this problem typically see two immediate benefits: their weekly reporting goes from 3 hours of manual consolidation to a 10-minute dashboard review, and their cross-functional meetings stop being arguments about whose numbers are right. When everyone trusts the same data, the conversation shifts from "what is the number" to "what do we do about it."',
     ],
   },
@@ -100,14 +101,14 @@ const posts = [
     title: 'Why Your Website Is Costing You Leads',
     date: 'November 2024',
     excerpt:
-      'Most business websites are digital brochures. Here\'s what a lead-generating website actually looks like.',
+      'Most business websites are digital brochures. Here\'s what a lead generating website actually looks like.',
     readTime: '5 min read',
-    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
+    author: { name: 'Radhika Tak', title: 'Founder, Straveda Tech' },
     fullContent: [
       'If your website\'s primary job is to "look professional," you\'ve already lost. Visitors don\'t come to your website to be impressed — they come because they have a problem and they\'re wondering if you can solve it. A website that leads with your company history, your team headshots, and your "values" is answering questions nobody asked.',
-      'A lead-generating website is organized around the visitor\'s decision journey, not your organizational chart. The first thing they see answers: what do you do, for whom, and what happens next? Every page has a clear next action. The contact form asks for the minimum information needed to have a useful conversation — not a 12-field qualification quiz.',
-      'Page speed is not optional. For every second of load time above 2 seconds, conversion rates drop measurably. On mobile, where over 60% of business website traffic now originates, a slow or poorly formatted page is an immediate exit. Next.js with server-side rendering, optimized images, and edge deployment typically cuts load times by 40-60% versus a typical WordPress or Webflow site.',
-      'The websites we build are designed to convert, not just impress. We start with conversion goals — contact form submissions, WhatsApp messages, discovery call bookings — and build backwards from there. Analytics are configured from day one so you know which pages are working and which are leaking visitors. Most of our clients see a meaningful increase in qualified inquiries within the first 60 days, without changing their traffic sources.',
+      'A lead generating website is organized around the visitor\'s decision journey, not your organizational chart. The first thing they see answers: what do you do, for whom, and what happens next? Every page has a clear next action. The contact form asks for the minimum information needed to have a useful conversation not a 12 field qualification quiz.',
+      'Page speed is not optional. For every second of load time above 2 seconds, conversion rates drop measurably. On mobile, where over 60% of business website traffic now originates, a slow or poorly formatted page is an immediate exit. Next.js with server side rendering, optimized images, and edge deployment typically cuts load times by 40-60% versus a typical WordPress or Webflow site.',
+      'The websites we build are designed to convert, not just impress. We start with conversion goals contact form submissions, WhatsApp messages, discovery call bookings  and build backwards from there. Analytics are configured from day one so you know which pages are working and which are leaking visitors. Most of our clients see a meaningful increase in qualified inquiries within the first 60 days, without changing their traffic sources.',
     ],
   },
 ];
@@ -365,7 +366,7 @@ export default function InsightsPage() {
                 <p className="text-[#9ca3af] text-[13px] mb-4">March 2024</p>
                 <p className="text-[#6b7280] dark:text-[#d1d5db] text-[15px] leading-relaxed mb-8">
                   Why forward-thinking enterprises are choosing
-                  open-standards middleware over proprietary lock-in, and what
+                  open standards middleware over proprietary lock in, and what
                   this means for your technology roadmap.
                 </p>
                 <span className="inline-flex items-center gap-2 text-[#1a1a2e] dark:text-[#f0f0f5] border border-[#e5e7eb] dark:border-white/[0.1] rounded-lg px-5 py-2.5 text-sm font-medium group-hover:bg-[#f8f8fc] dark:group-hover:bg-white/[0.06] transition-colors w-fit">
@@ -414,50 +415,37 @@ export default function InsightsPage() {
             </motion.div>
           </div>
 
-          {/* Post grid with AnimatePresence for filter transitions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="popLayout">
-              {filteredPosts.map((post, index) => {
-                const originalIndex = posts.indexOf(post);
-                return (
-                  <motion.article
-                    key={post.title}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                      y: 0,
-                      transition: { duration: 0.4, delay: index * 0.05, ease },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      scale: 0.95,
-                      y: 10,
-                      transition: { duration: 0.25, ease },
-                    }}
-                    className="glass-card rounded-xl p-8 hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group hover:shadow-md min-h-[320px] flex flex-col"
-                    onClick={() => setSelectedPost(originalIndex)}
-                  >
-                    <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
-                      {post.category}
-                    </span>
-                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] leading-snug mb-3">
-                      {post.title}
-                    </h3>
-                    <p className="text-[#9ca3af] text-[13px] mb-3">{post.date}</p>
-                    <p className="text-[#6b7280] dark:text-[#d1d5db] text-[14px] sm:text-[15px] leading-relaxed mb-5 flex-1">
-                      {post.excerpt}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-[#6b7280] dark:text-[#d1d5db] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
-                      Read
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </motion.article>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+          {/* Post grid — HorizontalCarousel on mobile, 3-col grid on desktop */}
+          <HorizontalCarousel cols={3} size="md" showHint={true}>
+            {filteredPosts.map((post, index) => {
+              const originalIndex = posts.indexOf(post);
+              return (
+                <motion.article
+                  key={post.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05, ease }}
+                  className="glass-card rounded-xl p-6 sm:p-8 hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group hover:shadow-md active:scale-[0.98] min-h-[300px] flex flex-col h-full"
+                  onClick={() => setSelectedPost(originalIndex)}
+                >
+                  <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4 w-fit">
+                    {post.category}
+                  </span>
+                  <h3 className="text-[17px] sm:text-[19px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] leading-snug mb-2 tracking-tight">
+                    {post.title}
+                  </h3>
+                  <p className="text-[#9ca3af] text-[12px] mb-3">{post.date} · {post.readTime}</p>
+                  <p className="text-[#6b7280] dark:text-[#d1d5db] text-[13px] sm:text-[14px] leading-relaxed mb-5 flex-1">
+                    {post.excerpt}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-[#6b7280] dark:text-[#d1d5db] text-[12px] sm:text-sm font-medium group-hover:text-[#FF4800] transition-colors">
+                    Read article
+                    <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </motion.article>
+              );
+            })}
+          </HorizontalCarousel>
         </div>
       </section>
 

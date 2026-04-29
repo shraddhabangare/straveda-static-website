@@ -10,17 +10,17 @@ const ease = [0.4, 0, 0.2, 1] as const;
 
 const services = [
   { id: 'enterprise-arch', label: 'Enterprise Architecture', icon: '🏗️' },
-  { id: 'tech-strategy', label: 'Technology Strategy', icon: '🎯' },
-  { id: 'mgmt-consulting', label: 'Management Consulting', icon: '📊' },
-  { id: 'software-solutions', label: 'Software Solutions', icon: '💻' },
-  { id: 'cloud-migration', label: 'Cloud Migration', icon: '☁️' },
+  { id: 'tech strategy', label: 'Technology Strategy', icon: '🎯' },
+  { id: 'mgmt consulting', label: 'Management Consulting', icon: '📊' },
+  { id: 'software solutions', label: 'Software Solutions', icon: '💻' },
+  { id: 'cloud migration', label: 'Cloud Migration', icon: '☁️' },
   { id: 'devops', label: 'DevOps', icon: '⚙️' },
 ];
 
 const timelineOptions = [
-  { id: '1-3', label: '1–3 months', detail: 'Quick-win projects' },
-  { id: '3-6', label: '3–6 months', detail: 'Medium engagement' },
-  { id: '6-12', label: '6–12 months', detail: 'Full transformation' },
+  { id: '1-3', label: '1 to 3 months', detail: 'Quick win projects' },
+  { id: '3-6', label: '3 to 6 months', detail: 'Medium engagement' },
+  { id: '6-12', label: '6 to 12 months', detail: 'Full transformation' },
   { id: '12+', label: '12+ months', detail: 'Enterprise rollout' },
 ];
 
@@ -84,90 +84,12 @@ const slideVariants = {
   }),
 };
 
-
-/*
-const stepIndicatorVariants = {
-  inactive: { scale: 1, backgroundColor: 'rgba(255,255,255,0.08)' },
-  active: { scale: 1.1, backgroundColor: '#FF4800' },
-  completed: { scale: 1, backgroundColor: '#FF4800' },
-};
-*/
-// ─── Step Indicator ─────────────────────────────────────────────
-/*
-function StepIndicator({ currentStep }: { currentStep: number }) {
-  const steps = ['Project', 'Timeline & Budget', 'Contact'];
-  return (
-    <div className="flex items-center justify-center gap-0 mb-8">
-      {steps.map((label, idx) => {
-        const stepNum = idx + 1;
-        const isCompleted = currentStep > stepNum;
-        const isActive = currentStep === stepNum;
-        const isLast = idx === steps.length - 1;
-
-        return (
-          <div key={label} className="flex items-center">
-            <div className="flex flex-col items-center">
-              <motion.div
-                className="relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-colors"
-                style={{
-                  borderColor: isActive || isCompleted ? '#FF4800' : 'rgba(255,255,255,0.15)',
-                  backgroundColor: isActive || isCompleted ? '#FF4800' : 'transparent',
-                  color: isActive || isCompleted ? '#fff' : '#A1A1A1',
-                }}
-                animate={
-                  isCompleted
-                    ? 'completed'
-                    : isActive
-                      ? 'active'
-                      : 'inactive'
-                }
-                variants={stepIndicatorVariants}
-              >
-                {isCompleted ? (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                  >
-                    <Check className="w-5 h-5" strokeWidth={3} />
-                  </motion.div>
-                ) : (
-                  stepNum
-                )}
-              </motion.div>
-              <span
-                className={`text-[11px] mt-2 hidden sm:block transition-colors ${
-                  isActive || isCompleted ? 'text-white' : 'text-[#52525B]'
-                }`}
-              >
-                {label}
-              </span>
-            </div>
-
-            {!isLast && (
-              <div className="w-12 sm:w-20 md:w-28 h-[2px] mx-2 sm:mx-3 mb-5 sm:mb-0 rounded-full overflow-hidden bg-white/[0.08]">
-                <motion.div
-                  className="h-full bg-[#FF4800] rounded-full"
-                  initial={{ width: '0%' }}
-                  animate={{ width: isCompleted ? '100%' : '0%' }}
-                  transition={{ duration: 0.5, ease }}
-                />
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-*/
 // ─── Progress Bar ───────────────────────────────────────────────
 
 function ProgressBar({ currentStep }: { currentStep: number }) {
   const progress = (currentStep / 3) * 100;
   return (
-    <div className="w-full h-1 bg-white/[0.06] rounded-full overflow-hidden mb-6">
+    <div className="w-full h-1 bg-[#e5e7eb] dark:bg-white/[0.06] rounded-full overflow-hidden mb-6">
       <motion.div
         className="h-full rounded-full"
         style={{
@@ -199,10 +121,10 @@ function SelectableCard({
       onClick={onClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative flex items-center gap-3 px-4 py-3.5 rounded-lg border cursor-pointer transition-all duration-200 text-left w-full ${
+      className={`relative flex items-center gap-3 px-4 py-3.5 min-h-[44px] rounded-lg border cursor-pointer transition-all duration-200 text-left w-full ${
         selected
-          ? 'bg-[#FF4800]/10 border-[#FF4800] text-white'
-          : 'bg-[#1e1a3f] border-white/[0.08] text-[#A1A1A1] hover:border-white/20'
+          ? 'bg-[#FF4800]/10 border-[#FF4800] text-[#1a1a2e] dark:text-white'
+          : 'bg-[#f8f8fc] dark:bg-[#1e1a3f] border-[#e5e7eb] dark:border-white/[0.08] text-[#6b7280] dark:text-[#A1A1A1] hover:border-[#d1d5db] dark:hover:border-white/20'
       }`}
     >
       <span className="text-lg">{icon}</span>
@@ -212,7 +134,7 @@ function SelectableCard({
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          className="w-5 h-5 rounded-full bg-[#FF4800] flex items-center justify-center"
+          className="w-5 h-5 rounded-full bg-[#FF4800] flex items-center justify-center shrink-0"
         >
           <Check className="w-3 h-3 text-white" strokeWidth={3} />
         </motion.div>
@@ -242,13 +164,13 @@ function OptionCard({
       onClick={onClick}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      className={`relative flex flex-col items-center gap-2 px-5 py-4 rounded-xl border cursor-pointer transition-all duration-200 text-center ${
+      className={`relative flex flex-col items-center gap-2 px-5 py-4 min-h-[44px] rounded-xl border cursor-pointer transition-all duration-200 text-center ${
         selected
-          ? 'bg-[#FF4800]/10 border-[#FF4800] text-white shadow-[0_0_20px_rgba(255,72,0,0.15)]'
-          : 'bg-[#1e1a3f] border-white/[0.08] text-[#A1A1A1] hover:border-white/20'
+          ? 'bg-[#FF4800]/10 border-[#FF4800] text-[#1a1a2e] dark:text-white shadow-[0_0_20px_rgba(255,72,0,0.15)]'
+          : 'bg-[#f8f8fc] dark:bg-[#1e1a3f] border-[#e5e7eb] dark:border-white/[0.08] text-[#6b7280] dark:text-[#A1A1A1] hover:border-[#d1d5db] dark:hover:border-white/20'
       }`}
     >
-      <Icon className={`w-5 h-5 ${selected ? 'text-[#FF4800]' : 'text-[#52525B]'} transition-colors`} />
+      <Icon className={`w-5 h-5 ${selected ? 'text-[#FF4800]' : 'text-[#9ca3af] dark:text-[#52525B]'} transition-colors`} />
       <span className="text-[15px] font-semibold">{label}</span>
       {detail && (
         <span className="text-[11px] opacity-60">{detail}</span>
@@ -296,7 +218,7 @@ function SuccessAnimation() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4, ease }}
-        className="text-2xl md:text-3xl font-semibold text-white mb-3"
+        className="text-2xl md:text-3xl font-semibold text-[#1a1a2e] dark:text-white mb-3"
       >
         Request Submitted!
       </motion.h3>
@@ -305,7 +227,7 @@ function SuccessAnimation() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6, ease }}
-        className="text-[#A1A1A1] text-base max-w-sm"
+        className="text-[#6b7280] dark:text-[#A1A1A1] text-base max-w-sm"
       >
         We&apos;ll be in touch within 24 hours to discuss your project needs.
       </motion.p>
@@ -354,18 +276,18 @@ function Step1({
       className="space-y-6"
     >
       <div>
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-1 flex items-center gap-2">
+        <h3 className="text-xl md:text-2xl font-semibold text-[#1a1a2e] dark:text-white mb-1 flex items-center gap-2">
           <Briefcase className="w-5 h-5 text-[#FF4800]" />
           Project Details
         </h3>
-        <p className="text-[#A1A1A1] text-sm">
+        <p className="text-[#6b7280] dark:text-[#A1A1A1] text-sm">
           Select the services you&apos;re interested in and describe your project.
         </p>
       </div>
 
       {/* Service Selection */}
       <div>
-        <label className="text-sm font-medium text-[#A1A1A1] mb-3 block">
+        <label className="text-sm font-medium text-[#6b7280] dark:text-[#A1A1A1] mb-3 block">
           Which services are you interested in? <span className="text-[#FF4800]">*</span>
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -383,7 +305,7 @@ function Step1({
 
       {/* Description */}
       <div>
-        <label htmlFor="wizard-description" className="text-sm font-medium text-[#A1A1A1] mb-3 block">
+        <label htmlFor="wizard-description" className="text-sm font-medium text-[#6b7280] dark:text-[#A1A1A1] mb-3 block">
           Project Description
         </label>
         <textarea
@@ -392,7 +314,7 @@ function Step1({
           placeholder="Tell us about your project goals, challenges, and what success looks like..."
           value={data.description}
           onChange={(e) => onChange({ description: e.target.value })}
-          className="w-full bg-[#1e1a3f] border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-4 py-3 text-[15px] placeholder-[#52525B] outline-none transition-colors resize-none"
+          className="w-full bg-[#f8f8fc] dark:bg-[#1e1a3f] border border-[#e5e7eb] dark:border-white/[0.08] focus:border-[#FF4800] text-[#1a1a2e] dark:text-white rounded-lg px-4 py-3 text-[15px] placeholder-[#9ca3af] dark:placeholder-[#52525B] outline-none transition-colors resize-none"
         />
       </div>
     </motion.div>
@@ -419,18 +341,18 @@ function Step2({
       className="space-y-8"
     >
       <div>
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-1 flex items-center gap-2">
+        <h3 className="text-xl md:text-2xl font-semibold text-[#1a1a2e] dark:text-white mb-1 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-[#FF4800]" />
           Timeline & Budget
         </h3>
-        <p className="text-[#A1A1A1] text-sm">
+        <p className="text-[#6b7280] dark:text-[#A1A1A1] text-sm">
           Help us understand your project scope and resource expectations.
         </p>
       </div>
 
       {/* Timeline Selector */}
       <div>
-        <label className="text-sm font-medium text-[#A1A1A1] mb-3 block">
+        <label className="text-sm font-medium text-[#6b7280] dark:text-[#A1A1A1] mb-3 block">
           <Calendar className="w-4 h-4 inline mr-1.5 text-[#FF4800]" />
           Expected Timeline <span className="text-[#FF4800]">*</span>
         </label>
@@ -450,23 +372,23 @@ function Step2({
 
       {/* Budget Slider */}
       <div>
-        <label className="text-sm font-medium text-[#A1A1A1] mb-3 block">
+        <label className="text-sm font-medium text-[#6b7280] dark:text-[#A1A1A1] mb-3 block">
           <DollarSign className="w-4 h-4 inline mr-1.5 text-[#FF4800]" />
           Estimated Budget
         </label>
-        <div className="bg-[#1e1a3f] border border-white/[0.08] rounded-lg px-6 py-5">
+        <div className="bg-[#f8f8fc] dark:bg-[#1e1a3f] border border-[#e5e7eb] dark:border-white/[0.08] rounded-lg px-6 py-5">
           <div className="flex justify-between mb-3">
-            <span className="text-[11px] text-[#52525B] uppercase tracking-wider">$10K</span>
+            <span className="text-[11px] text-[#9ca3af] dark:text-[#52525B] uppercase tracking-wider">$10K</span>
             <motion.span
               key={data.budget}
               initial={{ scale: 1.2, color: '#FF4800' }}
-              animate={{ scale: 1, color: '#ffffff' }}
+              animate={{ scale: 1, color: '#FF4800' }}
               transition={{ duration: 0.3 }}
-              className="text-base font-semibold text-white"
+              className="text-base font-semibold text-[#FF4800]"
             >
               {budgetOptions[data.budget].label}
             </motion.span>
-            <span className="text-[11px] text-[#52525B] uppercase tracking-wider">$500K+</span>
+            <span className="text-[11px] text-[#9ca3af] dark:text-[#52525B] uppercase tracking-wider">$500K+</span>
           </div>
           <div className="relative">
             <input
@@ -478,10 +400,9 @@ function Step2({
               onChange={(e) => onChange({ budget: Number(e.target.value) })}
               className="w-full h-2 rounded-full appearance-none cursor-pointer"
               style={{
-                background: `linear-gradient(to right, #FF4800 0%, #FF4800 ${(data.budget / 4) * 100}%, rgba(255,255,255,0.08) ${(data.budget / 4) * 100}%, rgba(255,255,255,0.08) 100%)`,
+                background: `linear-gradient(to right, #FF4800 0%, #FF4800 ${(data.budget / 4) * 100}%, rgba(0,0,0,0.08) ${(data.budget / 4) * 100}%, rgba(0,0,0,0.08) 100%)`,
               }}
             />
-            {/* Custom thumb styling via inline style — cross-browser fallback */}
             <style jsx>{`
               input[type='range']::-webkit-slider-thumb {
                 -webkit-appearance: none;
@@ -490,7 +411,7 @@ function Step2({
                 height: 22px;
                 border-radius: 50%;
                 background: #FF4800;
-                border: 3px solid #2B2358;
+                border: 3px solid #ffffff;
                 box-shadow: 0 0 10px rgba(255, 72, 0, 0.4);
                 cursor: pointer;
                 transition: box-shadow 0.2s;
@@ -503,7 +424,7 @@ function Step2({
                 height: 22px;
                 border-radius: 50%;
                 background: #FF4800;
-                border: 3px solid #2B2358;
+                border: 3px solid #ffffff;
                 box-shadow: 0 0 10px rgba(255, 72, 0, 0.4);
                 cursor: pointer;
               }
@@ -515,12 +436,12 @@ function Step2({
               <div
                 key={opt.value}
                 className={`text-[10px] transition-colors ${
-                  data.budget >= opt.value ? 'text-[#FF4800]/60' : 'text-[#52525B]'
+                  data.budget >= opt.value ? 'text-[#FF4800]/60' : 'text-[#9ca3af] dark:text-[#52525B]'
                 }`}
               >
                 <div
                   className={`w-1.5 h-1.5 rounded-full mx-auto mb-1 transition-colors ${
-                    data.budget >= opt.value ? 'bg-[#FF4800]' : 'bg-[#52525B]'
+                    data.budget >= opt.value ? 'bg-[#FF4800]' : 'bg-[#d1d5db] dark:bg-[#52525B]'
                   }`}
                 />
               </div>
@@ -531,7 +452,7 @@ function Step2({
 
       {/* Team Size Selector */}
       <div>
-        <label className="text-sm font-medium text-[#A1A1A1] mb-3 block">
+        <label className="text-sm font-medium text-[#6b7280] dark:text-[#A1A1A1] mb-3 block">
           <Users className="w-4 h-4 inline mr-1.5 text-[#FF4800]" />
           Team Size Involved <span className="text-[#FF4800]">*</span>
         </label>
@@ -555,7 +476,7 @@ function Step2({
 // ─── Step 3: Contact Information ────────────────────────────────
 
 const contactInputClasses =
-  'w-full bg-[#1e1a3f] border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-4 py-3.5 text-[15px] placeholder-[#52525B] outline-none transition-colors';
+  'w-full bg-[#f8f8fc] dark:bg-[#1e1a3f] border border-[#e5e7eb] dark:border-white/[0.08] focus:border-[#FF4800] text-[#1a1a2e] dark:text-white rounded-lg px-4 min-h-[44px] py-2.5 text-[15px] placeholder-[#9ca3af] dark:placeholder-[#52525B] outline-none transition-colors';
 
 function Step3({
   data,
@@ -575,10 +496,10 @@ function Step3({
       className="space-y-5"
     >
       <div>
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-1">
+        <h3 className="text-xl md:text-2xl font-semibold text-[#1a1a2e] dark:text-white mb-1">
           Contact Information
         </h3>
-        <p className="text-[#A1A1A1] text-sm">
+        <p className="text-[#6b7280] dark:text-[#A1A1A1] text-sm">
           How should we reach you to discuss your project?
         </p>
       </div>
@@ -637,8 +558,8 @@ function Step3({
       </div>
 
       {/* Summary preview */}
-      <div className="bg-[#1e1a3f]/60 rounded-lg p-4 border border-white/[0.06]">
-        <p className="text-[11px] uppercase tracking-wider text-[#52525B] mb-2">Project Summary</p>
+      <div className="bg-[#f8f8fc] dark:bg-[#1e1a3f]/60 rounded-lg p-4 border border-[#e5e7eb] dark:border-white/[0.06]">
+        <p className="text-[11px] uppercase tracking-wider text-[#9ca3af] dark:text-[#52525B] mb-2">Project Summary</p>
         <div className="flex flex-wrap gap-1.5">
           {data.selectedServices.length > 0 ? (
             data.selectedServices.map((id) => {
@@ -653,11 +574,11 @@ function Step3({
               );
             })
           ) : (
-            <span className="text-[13px] text-[#52525B]">No services selected</span>
+            <span className="text-[13px] text-[#9ca3af] dark:text-[#52525B]">No services selected</span>
           )}
         </div>
         {data.timeline && (
-          <p className="text-[13px] text-[#A1A1A1] mt-2">
+          <p className="text-[13px] text-[#6b7280] dark:text-[#A1A1A1] mt-2">
             <Calendar className="w-3 h-3 inline mr-1" />
             Timeline: {timelineOptions.find((t) => t.id === data.timeline)?.label}
             {' · '}
@@ -713,12 +634,10 @@ export default function ProjectRequestWizard() {
     if (!canProceed()) return;
     setIsSubmitting(true);
 
-    // Simulate API call (visual only)
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
     setIsSubmitted(true);
 
-    // Log the submission
     console.log('Project request submitted:', data);
   };
 
@@ -731,14 +650,14 @@ export default function ProjectRequestWizard() {
 
   return (
     <div
-      className="w-full max-w-3xl mx-auto rounded-xl border border-white/[0.08] bg-[#2B2358] p-6 sm:p-8 md:p-10 shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
-      style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)' }}
+      className="w-full max-w-3xl mx-auto rounded-xl border border-[#e5e7eb] dark:border-white/[0.08] bg-white dark:bg-[#121212] p-6 sm:p-8 md:p-10"
+      style={{
+        boxShadow: '0 8px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8)',
+      }}
     >
       {/* Progress Bar */}
       <ProgressBar currentStep={isSubmitted ? 3 : currentStep} />
 
-
-      {/* Step Indicator */}
       {/* Step Content */}
       <div className="relative overflow-hidden" style={{ minHeight: '380px' }}>
         <AnimatePresence mode="wait" custom={direction}>
@@ -760,16 +679,16 @@ export default function ProjectRequestWizard() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="flex items-center justify-between mt-8 pt-6 border-t border-white/[0.06]"
+          className="flex items-center justify-between mt-8 pt-6 border-t border-[#e5e7eb] dark:border-white/[0.06]"
         >
           <button
             type="button"
             onClick={goBack}
             disabled={currentStep === 1}
-            className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+            className={`flex items-center gap-2 px-5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ${
               currentStep === 1
                 ? 'opacity-0 pointer-events-none'
-                : 'text-[#A1A1A1] hover:text-white hover:bg-white/[0.05]'
+                : 'text-[#6b7280] dark:text-[#A1A1A1] hover:text-[#1a1a2e] dark:hover:text-white hover:bg-[#f0f0f4] dark:hover:bg-white/[0.05]'
             }`}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -781,10 +700,10 @@ export default function ProjectRequestWizard() {
               type="button"
               onClick={goNext}
               disabled={!canProceed()}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex items-center gap-2 px-6 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ${
                 canProceed()
                   ? 'bg-[#FF4800] hover:bg-[#e63f00] text-white shadow-[0_0_20px_rgba(255,72,0,0.2)] hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] btn-shine'
-                  : 'bg-white/[0.06] text-[#52525B] cursor-not-allowed'
+                  : 'bg-[#f0f0f4] dark:bg-white/[0.06] text-[#9ca3af] dark:text-[#52525B] cursor-not-allowed'
               }`}
             >
               Next
@@ -795,10 +714,10 @@ export default function ProjectRequestWizard() {
               type="button"
               onClick={handleSubmit}
               disabled={!canProceed() || isSubmitting}
-              className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex items-center gap-2 px-8 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ${
                 canProceed() && !isSubmitting
                   ? 'bg-[#FF4800] hover:bg-[#e63f00] text-white shadow-[0_0_20px_rgba(255,72,0,0.2)] hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] btn-shine'
-                  : 'bg-white/[0.06] text-[#52525B] cursor-not-allowed'
+                  : 'bg-[#f0f0f4] dark:bg-white/[0.06] text-[#9ca3af] dark:text-[#52525B] cursor-not-allowed'
               }`}
             >
               {isSubmitting ? (
@@ -806,7 +725,7 @@ export default function ProjectRequestWizard() {
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
+                    className="w-4 h-4 border-2 border-[#FF4800]/30 border-t-[#FF4800] rounded-full"
                   />
                   Submitting...
                 </>
@@ -832,7 +751,7 @@ export default function ProjectRequestWizard() {
           <button
             type="button"
             onClick={resetWizard}
-            className="text-[13px] text-[#52525B] hover:text-[#A1A1A1] transition-colors underline underline-offset-4 decoration-[#52525B] hover:decoration-[#A1A1A1]"
+            className="text-[13px] text-[#9ca3af] dark:text-[#52525B] hover:text-[#6b7280] dark:hover:text-[#A1A1A1] transition-colors underline underline-offset-4"
           >
             Submit another request
           </button>

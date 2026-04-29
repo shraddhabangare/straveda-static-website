@@ -235,7 +235,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
       {/* ═══ CONTENT ═══ */}
       <div
         ref={containerRef}
-        className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 text-left lg:px-8"
+        className="relative z-10 mx-auto w-full max-w-[860px] px-4 sm:px-6 lg:px-8 pt-24 pb-14 sm:pt-28 sm:pb-20 md:py-28 text-left"
       >
         {/* Pill Badge */}
         <motion.div
@@ -245,9 +245,9 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         >
           <span
             className={cn(
-              'group inline-flex items-center gap-3 rounded-full border px-3 py-1.5 shadow-sm',
+              'group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 shadow-sm',
               'cursor-default transition-all duration-300 hover:shadow-md',
-              'backdrop-blur-sm'
+              'backdrop-blur-sm max-w-full'
             )}
             style={{
               background: colors.badgeBg,
@@ -259,7 +259,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               style={{ color: '#FF4800' }}
             />
             <span
-              className="text-xs font-medium"
+              className="text-xs font-medium min-w-0 truncate"
               style={{ color: colors.badgeText }}
             >
               Pune, Maharashtra · Serving clients across India
@@ -280,16 +280,16 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease }}
-          className="mt-6 mb-6 font-normal"
+          className="mt-6 mb-6 font-normal w-full"
           style={{
-            fontSize: 'clamp(2.5rem, 10vw, 5.125rem)',
-            lineHeight: 1.0,
-            letterSpacing: '-2.05px',
+            fontSize: 'clamp(2rem, 8vw, 5.125rem)',
+            lineHeight: 1.05,
+            letterSpacing: '-1.5px',
             color: colors.headline,
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
-          {/* Replaced TextCursorProximity (2× useAnimationFrame at 60fps per letter)
-              with CSS group-hover — zero JS overhead, same visual intent */}
           <span
             className="block cursor-default"
             style={{ color: colors.headline }}
@@ -309,8 +309,8 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease }}
-          className="max-w-[600px] text-left text-[18px] font-normal leading-relaxed md:text-[20px]"
-          style={{ color: colors.tagline }}
+          className="w-full max-w-[600px] text-left text-[16px] font-normal leading-relaxed md:text-[20px]"
+          style={{ color: colors.tagline, overflowWrap: 'break-word' }}
         >
           {taglineWords.map((word, i) => (
             <span
@@ -475,7 +475,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
                     role: 'VP of Engineering, FinServ Corp',
                     avatar: 'JW',
                     date: 'March 2024',
-                    text: 'Straveda transformed our entire infrastructure strategy. Their enterprise architecture expertise is second to none — we modernized our core platform in under 6 months with zero disruption.',
+                    text: 'Straveda transformed our entire infrastructure strategy. Their enterprise architecture expertise is second to none we modernized our core platform in under 6 months with zero disruption.',
                   },
                   {
                     name: 'Priya Nambiar',

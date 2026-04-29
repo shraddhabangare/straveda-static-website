@@ -13,7 +13,7 @@ export default function Marquee({
     'AI & Automation',
     'Custom Software',
     'WhatsApp Automation',
-    'AI-Powered CRMs',
+    'AI Powered CRMs',
     'LLM Integration',
     'Workflow Automation',
     'Next.js Development',

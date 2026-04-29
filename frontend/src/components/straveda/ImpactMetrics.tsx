@@ -29,7 +29,7 @@ const metrics: MetricItem[] = [
     suffix: '%',
     decimals: 2,
     label: 'System Uptime',
-    subtitle: 'Enterprise-grade reliability',
+    subtitle: 'Enterprise grade reliability',
     progress: 100,
   },
   {

@@ -24,6 +24,8 @@ import MagneticButton from '@/components/straveda/MagneticButton';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
 import ServicesHoverModal from '@/components/straveda/ServicesHoverModal';
 import PageHeader from '@/components/straveda/PageHeader';
+import ServicesSection from '@/components/straveda/ServicesSection';
+import HorizontalCarousel from '@/components/straveda/HorizontalCarousel';
 
 /* ------------------------------------------------------------------ */
 /* Component-level Styles                                             */
@@ -109,11 +111,11 @@ const services: ServiceBlockData[] = [
     id: 'automation',
     badge: 'AUTOMATION',
     title: 'AI & Business Automation',
-    body: ' WhatsApp flows that qualify leads and drive conversions. Behavior-triggered email sequences for engagement and retention. AI agents handling tier-1 customer support. Workflow automation reducing manual operational load. 30–60% reduction in manual operations within the first 90 days',
+    body: ' WhatsApp flows that qualify leads and drive conversions. Behavior Triggered email sequences for engagement and retention. AI agents handling tier 1 customer support. Workflow automation reducing manual operational load. 30 to 60% reduction in manual operations within the first 90 days',
     capabilities: [
-      'WhatsApp Automation: AI-powered lead qualification & instant booking',
+      'WhatsApp Automation: AI powered lead qualification & instant booking',
       'Email Sequences: Behavioral triggers that run without touching your CRM',
-      'AI Support: Tier-1 handled by AI, complex issues auto-escalate',
+      'AI Support: Tier 1 handled by AI, complex issues auto escalate',
     ],
     number: '01',
   },
@@ -121,11 +123,11 @@ const services: ServiceBlockData[] = [
     id: 'custom-software',
     badge: 'SOFTWARE',
     title: 'Custom Software & Systems',
-    body: "AI-powered CRMs designed for real team adoption. Real-time dashboards replacing fragmented monitoring tools. Internal systems built around your workflows (not rigid SaaS tools). Centralized data systems for better decision-making.",
+    body: "AI powered CRMs designed for real team adoption. Real time dashboards replacing fragmented monitoring tools. Internal systems built around your workflows (not rigid SaaS tools). Centralized data systems for better decision making.",
     capabilities: [
-      'AI-Powered CRMs: Built around your specific sales process',
-      'Operational Dashboards: Real-time visibility into your core metrics',
-      'Customer Portals: Reduce support volume with intelligent self-service',
+      'AI Powered CRMs: Built around your specific sales process',
+      'Operational Dashboards: Real time visibility into your core metrics',
+      'Customer Portals: Reduce support volume with intelligent self service',
     ],
     number: '02',
   },
@@ -133,10 +135,10 @@ const services: ServiceBlockData[] = [
     id: 'ai-strategy',
     badge: 'STRATEGY',
     title: 'AI Strategy & Integration',
-    body: 'Deployment of GPT-class models and advanced AI APIs. Custom LLM integration tailored to business workflows. End-to-end AI architecture, training, and deployment. Seamless integration into your existing tech stack.',
+    body: 'Deployment of GPT class models and advanced AI APIs. Custom LLM integration tailored to business workflows. End To End AI architecture, training, and deployment. Seamless integration into your existing tech stack.',
     capabilities: [
       'AI Architecture: Phased roadmap to deploy where it creates real ROI',
-      'LLM Fine-Tuning: Models trained on your specific business context',
+      'LLM Fine Tuning: Models trained on your specific business context',
       'RAG Systems: AI that answers questions using your private secure data',
     ],
     number: '03',
@@ -145,9 +147,9 @@ const services: ServiceBlockData[] = [
     id: 'web-development',
     badge: 'DIGITAL',
     title: 'Web Design & Experiences',
-    body: 'High-performance websites built using modern frameworks (e.g., Next.js). 3D interactive experiences for premium brand differentiation. Conversion-focused landing pages (not just visual design). Fast-loading, SEO-ready, edge-deployed architecture. 2–4x improvement in conversion rates compared to template-based sites',
+    body: 'High Performance websites built using modern frameworks (e.g., Next.js). 3D interactive experiences for premium brand differentiation. Conversion focused landing pages (not just visual design). Fast loading, SEO Ready, edge deployed architecture. 2–4x improvement in conversion rates compared to template based sites',
     capabilities: [
-      'Next.js Performance: Sub-second loads and global edge deployment',
+      'Next.js Performance: Sub second loads and global edge deployment',
       '3D & Interactive: Make your brand unforgettable with immersive builds',
       'Conversion Funnels: A/B testing and analytics built into the core',
     ],
@@ -166,7 +168,7 @@ function HeroSection() {
         <PageHeader
           eyebrow="Our Expertise"
           title="Enterprise Software & AI Automation Services"
-          subtitle="We build high-performance infrastructure and intelligent automation systems designed for the next generation of enterprise growth."
+          subtitle="We build high performance infrastructure and intelligent automation systems designed for the next generation of enterprise growth."
         />
       </div>
     </section>
@@ -260,39 +262,39 @@ function WhyStravedaSection() {
   const whyCards = [
     {
       icon: <Diamond size={32} className="text-[#FF4800]" strokeWidth={1.5} />,
-      title: 'Automation-First',
+      title: 'Automation First',
       body: 'We audit what can be removed before we build. We prune scope—then automate what remains.',
     },
     {
       icon: <TrendingDown size={32} className="text-[#FF4800]" strokeWidth={1.5} />,
       title: 'Weekly Shipping',
-      body: 'One-week sprints with visible builds every Friday. You see working code, not slide decks.',
+      body: 'One week sprints with visible builds every Friday. You see working code, not slide decks.',
     },
     {
       icon: <ShieldCheck size={32} className="text-[#FF4800]" strokeWidth={1.5} />,
       title: 'Full Ownership',
-      body: 'Zero vendor lock-in. You own 100% of the source code and the intellectual property.',
+      body: 'Zero vendor lock in. You own 100% of the source code and the intellectual property.',
     },
   ];
 
   return (
     <section className="relative bg-white dark:bg-[#0a0a14] px-6 pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <HorizontalCarousel cols={3} size="md">
           {whyCards.map((card, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-card flex flex-col h-full rounded-2xl p-8"
+              className="glass-card flex flex-col h-full rounded-2xl p-8 active:scale-95 transition-transform"
             >
               <div className="mb-6">{card.icon}</div>
-              <h4 className="text-xl font-normal tracking-[-0.02em] text-gray-900 dark:text-white">{card.title}</h4>
+              <h4 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{card.title}</h4>
               <p className="mt-4 flex-1 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">{card.body}</p>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
       </div>
     </section>
   );
@@ -354,14 +356,14 @@ function TechStackSection() {
           {techCategories.map((category) => (
             <div key={category.label}>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#FF4800]">{category.label}</p>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <HorizontalCarousel cols={4} size="sm" showHint={false} showDots={false}>
                 {category.items.map((tech, i) => (
-                  <div key={i} className="glass-card flex flex-col items-center justify-center gap-4 rounded-2xl p-8">
+                  <div key={i} className="glass-card flex flex-col items-center justify-center gap-3 rounded-2xl p-6 sm:p-8 active:scale-95 transition-transform h-full">
                     {tech.icon}
-                    <span className="text-sm font-bold uppercase tracking-widest text-[#1a1a2e] dark:text-white">{tech.name}</span>
+                    <span className="text-[11px] sm:text-sm font-bold uppercase tracking-widest text-[#1a1a2e] dark:text-white text-center">{tech.name}</span>
                   </div>
                 ))}
-              </div>
+              </HorizontalCarousel>
             </div>
           ))}
         </div>
@@ -379,6 +381,8 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
     <main className="min-h-screen bg-white dark:bg-[#0a0a14]">
       <ServicesPageStyles />
       <HeroSection />
+      {/* ── Service card grid/carousel — mobile carousel, desktop grid ── */}
+      <ServicesSection />
       <WhyStravedaSection />
       <ServicesHoverModal onNavigate={onNavigate} />
       

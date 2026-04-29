@@ -222,7 +222,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden w-full`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           {children}

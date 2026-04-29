@@ -166,6 +166,13 @@
 }
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -173,6 +180,7 @@
     @apply bg-background text-foreground;
     font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
+    width: 100%;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
@@ -782,6 +790,8 @@ html {
   scroll-behavior: auto; /* must stay auto — Lenis overrides with its own smooth */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* ============================================
@@ -881,6 +891,73 @@ html {
 }
 .link-arrow:hover .arrow-icon {
   transform: translateX(4px);
+}
+
+/* ============================================
+   Scrollbar Hide — generic utility for any element
+   ============================================ */
+.scrollbar-hide {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge legacy */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / WebKit */
+}
+
+/* ============================================
+   HorizontalCarousel — responsive card sizing
+   Mobile: fixed-vw width cards with snap alignment
+   Desktop (md+): cards revert to auto width (grid drives sizing)
+   ============================================ */
+
+/* sm  — 72vw: compact cards (stats, icons, small chips) */
+.hcarousel-item-sm {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: 72vw;
+}
+/* md  — 82vw: standard content cards */
+.hcarousel-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: 82vw;
+}
+/* lg  — 85vw: large feature cards, peek effect is stronger */
+.hcarousel-item-lg {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: 85vw;
+}
+
+@media (min-width: 768px) {
+  .hcarousel-item-sm,
+  .hcarousel-item,
+  .hcarousel-item-lg {
+    width: auto;
+    flex-shrink: 1;
+    scroll-snap-align: none;
+  }
+}
+
+/* ============================================
+   iOS Auto-Zoom Fix — inputs must be ≥ 16px on mobile
+   iOS Safari zooms in when an input's font-size < 16px.
+   We force 16px on mobile and restore normal sizing on sm+.
+   ============================================ */
+@media (max-width: 639px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* ============================================
+   snap-mandatory helper (belt-and-suspenders for older browsers)
+   ============================================ */
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ============================================

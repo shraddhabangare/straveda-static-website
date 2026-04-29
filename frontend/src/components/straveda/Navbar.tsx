@@ -101,7 +101,6 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted,    setMounted]    = useState(false);
   const [compact,    setCompact]    = useState(false);
-  const prevY = { current: 0 };
 
   // Hydration guard
   useEffect(() => {
@@ -173,9 +172,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: EASE }}
         style={{
-          /* ── KEY: padding drives the 45% shrink from both sides ── */
-          paddingLeft:  compact ? '22.5vw' : '1rem',
-          paddingRight: compact ? '22.5vw' : '1rem',
+          /*
+           * Compact shrink — desktop only (md+).
+           * On mobile keep full-width pill with 1rem gutter on each side
+           * so the logo stays at the same left edge as page content.
+           */
+          paddingLeft:  compact ? 'clamp(1rem, 22.5vw, 22.5vw)' : '1rem',
+          paddingRight: compact ? 'clamp(1rem, 22.5vw, 22.5vw)' : '1rem',
           transition:   WRAPPER_TRANSITION,
         }}
       >
@@ -219,11 +222,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             }}
           />
 
-          {/* ── LEFT: Wordmark ─────────────────────────────────── */}
+          {/* ── Wordmark — absolute center on mobile, static left on desktop ── */}
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); onNavigate('home'); }}
-            className="relative z-10 shrink-0 select-none"
+            className="z-10 shrink-0 select-none"
             style={{
               fontFamily:    'Geist, sans-serif',
               fontSize:      15,
@@ -327,17 +330,19 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
             {/* Hamburger — mobile only */}
             <button
-              className="md:hidden flex items-center justify-center w-8 h-8 rounded-full cursor-pointer"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-full cursor-pointer"
               style={{
                 color:      T.textMuted,
                 background: 'rgba(255,72,0,0.07)',
                 border:     `1px solid rgba(255,72,0,0.20)`,
                 transition: 'background 0.3s ease',
+                minWidth:   44,
+                minHeight:  44,
               }}
               onClick={() => setMobileOpen((p) => !p)}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             >
-              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
@@ -361,9 +366,9 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               WebkitBackdropFilter: 'blur(24px)',
             }}
           >
-            {/* Top bar */}
+            {/* Top bar — logo centered, close button absolutely right */}
             <div
-              className="flex items-center justify-between px-6 pt-6 pb-4"
+              className="relative flex items-center justify-center px-6 pt-6 pb-4"
               style={{ borderBottom: `1px solid rgba(255,255,255,0.08)` }}
             >
               <a
@@ -375,16 +380,18 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 Str<span style={{ color: ORANGE }}>a</span>veda
               </a>
               <button
-                className="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
+                className="absolute right-6 flex items-center justify-center w-11 h-11 rounded-full cursor-pointer"
                 style={{
                   color:      'rgba(255,255,255,0.50)',
                   background: 'rgba(255,255,255,0.05)',
                   border:     '1px solid rgba(255,255,255,0.08)',
+                  minWidth:   44,
+                  minHeight:  44,
                 }}
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
             </div>
 
@@ -398,13 +405,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
-                  className="text-[30px] font-normal py-2.5 transition-colors duration-200"
+                  className="relative text-center text-[30px] font-normal py-2.5 transition-colors duration-200"
                   style={{ color: isActive(page) ? '#FFFFFF' : 'rgba(255,255,255,0.50)' }}
                 >
                   {label}
                   {isActive(page) && (
                     <span
-                      className="ml-2 inline-block w-1.5 h-1.5 rounded-full align-middle"
+                      className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 block w-1.5 h-1.5 rounded-full"
                       style={{ backgroundColor: ORANGE }}
                     />
                   )}

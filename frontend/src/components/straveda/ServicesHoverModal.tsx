@@ -18,9 +18,9 @@ const serviceData: ServiceItem[] = [
   {
     title: 'Enterprise Architecture',
     badge: 'ARCHITECTURE',
-    short: 'Modernize your application portfolio with adaptive, open-standards architecture.',
+    short: 'Modernize your application portfolio with adaptive, open standards architecture.',
     extended:
-      'We evolve your application portfolio using adaptive, open-standards architecture. Our solutions increase reliability, maintainability and interoperability — reducing technical debt while enabling agile practices.',
+      'We evolve your application portfolio using adaptive, open standards architecture. Our solutions increase reliability, maintainability and interoperability — reducing technical debt while enabling agile practices.',
     capabilities: [
       'Portfolio modernization & rationalization',
       'Open standards & middleware integration',
@@ -63,11 +63,11 @@ const serviceData: ServiceItem[] = [
   {
     title: 'Custom Software & AI Systems',
     badge: 'SOFTWARE',
-    short: 'Bespoke software and AI-powered tools built to fit your exact workflow.',
+    short: 'Bespoke software and AI powered tools built to fit your exact workflow.',
     extended:
-      'We design and build custom software — CRMs, ops dashboards, AI-integrated platforms — that replace off-the-shelf tools and fit your exact business process. Off-the-shelf is built for average. You\'re not average.',
+      'We design and build custom software — CRMs, ops dashboards, AI integrated platforms — that replace off the shelf tools and fit your exact business process. Off the shelf is built for average. You\'re not average.',
     capabilities: [
-      'AI-powered CRM development',
+      'AI powered CRM development',
       'Operational dashboards & analytics',
       'LLM & RAG system integration',
       'API integrations & data pipelines',

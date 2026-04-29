@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
+import HorizontalCarousel from '@/components/straveda/HorizontalCarousel';
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
@@ -25,13 +26,13 @@ const testimonialsColumn1 = [
     rating: 5,
   },
   {
-    text: 'Our CRM actually works the way we work. Sales velocity is up 3x and our team adoption was instant — from 45% on Salesforce to 95% on the custom build.',
+    text: 'Our CRM actually works the way we work. Sales velocity is up 3x and our team adoption was instant from 45% on Salesforce to 95% on the custom build.',
     name: 'Founder',
     role: 'SaaS Startup · Bangalore',
     rating: 5,
   },
   {
-    text: 'Fixed-price quote, clear timeline, weekly progress updates. No surprises, no scope creep. The system was live in 5 weeks.',
+    text: 'Fixed price quote, clear timeline, weekly progress updates. No surprises, no scope creep. The system was live in 5 weeks.',
     name: 'CEO',
     role: 'Professional Services · Pune',
     rating: 5,
@@ -52,19 +53,19 @@ const testimonialsColumn2 = [
     rating: 5,
   },
   {
-    text: 'I was skeptical about the 4–6 week timeline. They shipped the first working system in week 4. Every Friday, a demo. Every Monday, our feedback. It worked.',
+    text: 'I was skeptical about the 4 to 6 week timeline. They shipped the first working system in week 4. Every Friday, a demo. Every Monday, our feedback. It worked.',
     name: 'Founder',
     role: 'B2B SaaS · India',
     rating: 5,
   },
   {
-    text: 'We reclaimed 90 hours/month of team capacity from one automation project. That\'s 2 full-time people worth of work eliminated.',
+    text: 'We reclaimed 90 hours/month of team capacity from one automation project. That\'s 2 full time people worth of work eliminated.',
     name: 'Operations Director',
-    role: 'Mid-Market Company · India',
+    role: 'Mid Market Company · India',
     rating: 5,
   },
   {
-    text: 'We\'re early — our first clients are live on Straveda systems. Case studies publish Q2 2026 with their permission. Ask to speak to a current client on the intro call — we\'ll connect you.',
+    text: 'We\'re early  our first clients are live on Straveda systems. Case studies publish Q2 2026 with their permission. Ask to speak to a current client on the intro call we\'ll connect you.',
     name: 'Straveda Team',
     role: '2024',
     rating: 5,
@@ -79,7 +80,7 @@ const testimonialsColumn2 = [
 
 const testimonialsColumn3 = [
   {
-    text: 'Full code ownership from day one. No lock-in. If Straveda disappeared tomorrow, we could run everything ourselves — and we know how.',
+    text: 'Full code ownership from day one. No lock in. If Straveda disappeared tomorrow, we could run everything ourselves — and we know how.',
     name: 'CTO',
     role: 'Startup · India',
     rating: 5,
@@ -97,13 +98,13 @@ const testimonialsColumn3 = [
     rating: 5,
   },
   {
-    text: 'Fixed price, weekly visibility, real builds — not wireframes. That\'s the difference from every agency we\'ve worked with before.',
+    text: 'Fixed price, weekly visibility, real builds not wireframes. That\'s the difference from every agency we\'ve worked with before.',
     name: 'Operations Director',
-    role: 'Mid-Market Company · India',
+    role: 'Mid Market Company · India',
     rating: 5,
   },
   {
-    text: 'Senior attention on every build. No hand-off to juniors. The person who scoped the project built it.',
+    text: 'Senior attention on every build. No hand off to juniors. The person who scoped the project built it.',
     name: 'Founder',
     role: 'D2C Brand · India',
     rating: 5,
@@ -309,8 +310,8 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             </h2>
           </motion.div>
 
-          {/* 3-column grid of scrolling testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {/* 3-column scrolling carousel on mobile, grid on desktop */}
+          <HorizontalCarousel cols={3} size="md" showHint={true}>
             <TestimonialScrollColumn
               testimonials={testimonialsColumn1}
               duration={35}
@@ -326,7 +327,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
               duration={30}
               direction="up"
             />
-          </div>
+          </HorizontalCarousel>
         </div>
       </section>
 
@@ -353,7 +354,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             </div>
 
             <blockquote className="text-[24px] md:text-[32px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] leading-[1.6] mb-8 italic">
-              &ldquo;Straveda doesn&apos;t just deliver projects — they transform how organizations think about technology. Their strategic vision and execution excellence made our digital transformation a resounding success.&rdquo;
+              &ldquo;Straveda doesn&apos;t just deliver projects they transform how organizations think about technology. Their strategic vision and execution excellence made our digital transformation a resounding success.&rdquo;
             </blockquote>
 
             <div className="flex items-center justify-center gap-4">

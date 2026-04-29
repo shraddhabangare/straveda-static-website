@@ -41,9 +41,9 @@ const cardVariants = {
 };
 
 const bentoItems: { title: string; description: string; size: 'large' | 'normal'; icon: LucideIcon }[] = [
-  { title: "Weekly Shipping, Not Quarterly Roadmaps", description: "One week sprints with public progress logs. You see builds every Friday, approve Monday, ship Tuesday. No black-box discovery phases that last three months.", size: "large", icon: Activity },
-  { title: "Automation-First, Always", description: "Before we build feature one, we audit what can be removed, integrated, or automated. Most agencies pad scope. We prune it then automate what's left.", size: "normal", icon: Brain },
-  { title: "You Own Everything", description: "Full code ownership. Complete documentation. Zero vendor lock in. If we disappear tomorrow, you can run and maintain every system we built. That's non-negotiable.", size: "normal", icon: Shield },
+  { title: "Weekly Shipping, Not Quarterly Roadmaps", description: "One week sprints with public progress logs. You see builds every Friday, approve Monday, ship Tuesday. No black box discovery phases that last three months.", size: "large", icon: Activity },
+  { title: "Automation First, Always", description: "Before we build feature one, we audit what can be removed, integrated, or automated. Most agencies pad scope. We prune it then automate what's left.", size: "normal", icon: Brain },
+  { title: "You Own Everything", description: "Full code ownership. Complete documentation. Zero vendor lock in. If we disappear tomorrow, you can run and maintain every system we built. That's non negotiable.", size: "normal", icon: Shield },
   { title: "Priced to ROI in 60 Days", description: "Every proposal includes projected time savings, cost reduction, or revenue lift. If a system doesn't pay for itself in one quarter, we don't recommend building it.", size: "normal", icon: Globe },
   { title: "One Team, End to End", description: "Strategy, AI engineering, design, and deployment under one roof. One Slack channel. One point of accountability. No vendor chains. No handoff loss.", size: "normal", icon: Cloud },
   { title: "Senior Execution", description: "We cap engagements each quarter so we can ship fast and stay accountable. You get senior attention on every build not a deck from partners and delivery from juniors.", size: "normal", icon: Users },
@@ -66,11 +66,11 @@ const services: ServiceItem[] = [
     title: 'AI & Business Automation',
     bullets: [
       'WhatsApp flows that qualify leads and drive conversions',
-      'Behavior-triggered email sequences for engagement and retention',
-      'AI agents handling tier-1 customer support',
+      'Behavior Triggered email sequences for engagement and retention',
+      'AI agents handling tier 1 customer support',
       'Workflow automation reducing manual operational load',
     ],
-    metric: '30–60% reduction in manual operations within the first 90 days',
+    metric: '30 to 60% reduction in manual operations within the first 90 days',
     ctaLabel: 'See automation',
     ctaDesc: 'Book a free strategy call',
   },
@@ -78,10 +78,10 @@ const services: ServiceItem[] = [
     badge: 'Software',
     title: 'Custom Software & Systems',
     bullets: [
-      'AI-powered CRMs designed for real team adoption',
-      'Real-time dashboards replacing fragmented monitoring tools',
+      'AI powered CRMs designed for real team adoption',
+      'Real time dashboards replacing fragmented monitoring tools',
       'Internal systems built around your workflows (not rigid SaaS tools)',
-      'Centralized data systems for better decision-making',
+      'Centralized data systems for better decision making',
     ],
     ctaLabel: 'Explore custom',
     ctaDesc: 'Built around your workflow',
@@ -90,9 +90,9 @@ const services: ServiceItem[] = [
     badge: 'Strategy',
     title: 'AI Strategy & Integration',
     bullets: [
-      'Deployment of GPT-class models and advanced AI APIs',
+      'Deployment of GPT Class models and advanced AI APIs',
       'Custom LLM integration tailored to business workflows',
-      'End-to-end AI architecture, training, and deployment',
+      'End To End AI architecture, training, and deployment',
       'Seamless integration into your existing tech stack',
     ],
     ctaLabel: 'Talk AI strategy',
@@ -102,14 +102,14 @@ const services: ServiceItem[] = [
     badge: 'Digital',
     title: 'Web Development & 3D Experiences',
     bullets: [
-      'High-performance websites built using modern frameworks (e.g., Next.js)',
+      'High Performance websites built using modern frameworks (e.g., Next.js)',
       '3D interactive experiences for premium brand differentiation',
-      'Conversion-focused landing pages (not just visual design)',
-      'Fast-loading, SEO-ready, edge-deployed architecture',
+      'Conversion Focused landing pages (not just visual design)',
+      'Fast loading, SEO Ready, Edge Deployed architecture',
     ],
-    metric: '2–4x improvement in conversion rates compared to template-based sites',
+    metric: '2 to 4x improvement in conversion rates compared to Template Based sites',
     ctaLabel: 'View web capabilities',
-    ctaDesc: 'Edge-deployed, conversion-first',
+    ctaDesc: 'Edge Deployed, conversion first',
   },
 ];
 
@@ -130,7 +130,7 @@ function ServiceCard({ service, onNavigate, isDark }: { service: ServiceItem; on
         border: `1px solid ${border}`,
         boxShadow: shadow,
         transition: 'box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease',
-        fontFamily: "'Space Grotesk', system-ui, sans-serif",
+        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLDivElement;
@@ -236,7 +236,7 @@ function TestimonialsCarousel() {
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: '700px', height: '400px', background: 'radial-gradient(ellipse at center, rgba(255,72,0,0.10) 0%, rgba(255,72,0,0.03) 40%, transparent 70%)' }} />
       <div className="pointer-events-none absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,72,0,0.4) 50%, transparent)' }} />
-      <div className="relative mx-auto max-w-3xl px-6 lg:px-8 text-center">
+      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
         <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6, ease }} className="mb-6 text-[11px] font-semibold uppercase tracking-widest" style={{ color: '#FF4800' }}>Client Feedback</motion.p>
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, delay: 0.1, ease }} className="mb-6 flex items-center justify-center gap-1">
           {[...Array(t.stars)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" style={{ color: '#FBBF24' }} />)}
@@ -260,16 +260,16 @@ function TestimonialsCarousel() {
 
 const faqs = [
   { question: 'What services does Straveda Tech offer?', answer: 'We provide AI automation, custom software development, cloud & DevOps, cybersecurity, and data analytics solutions built to reduce manual work and scale your operations.' },
-  { question: 'How can AI automation benefit my business?', answer: 'AI automation reduces repetitive tasks, lowers costs, and improves decision-making. Common use cases include lead qualification, customer support, and workflow automation.' },
-  { question: 'Do you build custom solutions or use ready-made tools?', answer: 'We build fully custom solutions tailored to your workflows, goals, and scalability needs — ensuring better performance and long-term ROI.' },
-  { question: 'How long does a project take?', answer: 'Small systems: 1–2 weeks. Medium projects: 3–5 weeks. Large solutions: 6–9+ weeks. We follow a structured process from planning to deployment.' },
+  { question: 'How can AI automation benefit my business?', answer: 'AI automation reduces repetitive tasks, lowers costs, and improves decision making. Common use cases include lead qualification, customer support, and workflow automation.' },
+  { question: 'Do you build custom solutions or use ready made tools?', answer: 'We build fully custom solutions tailored to your workflows, goals, and scalability needs — ensuring better performance and long term ROI.' },
+  { question: 'How long does a project take?', answer: 'Small systems: 1 to 2 weeks. Medium projects: 3 to 5 weeks. Large solutions: 6 to 9+ weeks. We follow a structured process from planning to deployment.' },
   { question: 'Is AI automation suitable for startups?', answer: 'Yes. Startups use it to scale faster, while enterprises use it to optimize operations. We tailor solutions to your growth stage.' },
   { question: 'How secure are your solutions?', answer: 'We follow industry standards like GDPR, ISO, SOC2, and HIPAA to ensure strong data protection and system security.' },
-  { question: 'Do you provide post-launch support?', answer: 'Yes. We offer ongoing maintenance, optimization, and upgrades to keep your system aligned with business growth.' },
-  { question: 'Can you integrate with existing tools?', answer: 'Yes. We integrate with CRMs, ERPs, payment systems, and third-party APIs without disrupting your current setup.' },
+  { question: 'Do you provide post launch support?', answer: 'Yes. We offer ongoing maintenance, optimization, and upgrades to keep your system aligned with business growth.' },
+  { question: 'Can you integrate with existing tools?', answer: 'Yes. We integrate with CRMs, ERPs, payment systems, and third party APIs without disrupting your current setup.' },
   { question: 'Which industries do you work with?', answer: 'We serve healthcare, finance, retail, manufacturing, education, and tech startups.' },
-  { question: 'What makes Straveda Tech different?', answer: 'We focus on outcomes — not just development. Our approach is AI-first, fully custom, and built for scalability and ROI.' },
-  { question: 'How do I get started?', answer: 'Share your requirements → Get a tailored strategy → Start with a clear execution roadmap. Book a 30-min call and we\'ll send a proposal within 48 hours.' },
+  { question: 'What makes Straveda Tech different?', answer: 'We focus on outcomes not just development. Our approach is AI First, fully custom, and built for scalability and ROI.' },
+  { question: 'How do I get started?', answer: 'Share your requirements → Get a tailored strategy → Start with a clear execution roadmap. Book a 30 Min call and we\'ll send a proposal within 48 hours.' },
 ];
 
 function FAQSection() {
@@ -277,7 +277,7 @@ function FAQSection() {
   const toggle = (index: number) => setOpenIndex(openIndex === index ? null : index);
   return (
     <section id="section-faq" className="glow-hover py-24 bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.06]">
-      <div className="mx-auto max-w-3xl px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="mb-14 text-center">
           <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>FREQUENTLY ASKED QUESTIONS</p>
           <div className="flex items-start gap-5 justify-center">
@@ -330,13 +330,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   };
 
   return (
-    <div>
-      {/* Space Grotesk for service cards */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-      <style jsx global>{`
+    <div className="overflow-x-hidden w-full">
+<style jsx global>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
@@ -347,16 +342,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </div>
 
       {/* ── Honest Proof Strip ── */}
-      <motion.section id="section-partners" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease }} className="py-16 md:py-24 bg-white dark:bg-[#0a0a14] relative border-t border-black/[0.06] dark:border-white/[0.06]">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 relative text-center">
+      <motion.section id="section-partners" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease }} className="py-14 md:py-24 bg-white dark:bg-[#0a0a14] relative border-t border-black/[0.06] dark:border-white/[0.06] overflow-hidden">
+        <div className="mx-auto max-w-4xl px-4 sm:px-4 sm:px-6 lg:px-8 relative text-center">
           <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>Where we stand</p>
           <div className="flex items-start gap-5 justify-center">
             <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-            <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-2px', whiteSpace: 'nowrap' }}>A Strong Foundation for Scalable Growth.</h2>
+            <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-1.5px', overflowWrap: 'break-word', wordBreak: 'break-word' }}>A Strong Foundation for Scalable Growth.</h2>
           </div>
           <p className="mt-4 text-[16px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto">We take on a limited number of engagements each quarter so we can ship fast and stay accountable. Our current clients are in D2C, B2B SaaS, and professional services.</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {[{ label: 'Fixed-price after discovery', icon: '✓' }, { label: 'Weekly progress updates', icon: '✓' }, { label: 'Full code ownership', icon: '✓' }, { label: 'No long-term lock-in', icon: '✓' }].map((item) => (
+            {[{ label: 'Fixed price after discovery', icon: '✓' }, { label: 'Weekly progress updates', icon: '✓' }, { label: 'Full code ownership', icon: '✓' }, { label: 'No long term lock in', icon: '✓' }].map((item) => (
               <div key={item.label} className="flex items-center gap-2 rounded-full px-4 py-2" style={{ background: 'rgba(255,72,0,0.06)', border: '1px solid rgba(255,72,0,0.12)' }}>
                 <span className="text-[13px] font-semibold" style={{ color: '#FF4800' }}>{item.icon}</span>
                 <span className="text-[13px] font-medium text-[#6b7280] dark:text-[#9ca3af]">{item.label}</span>
@@ -368,13 +363,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
       {/* ── Technology Partners ── */}
       <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease }} className="py-14 md:py-20 bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.06]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <div className="flex items-start gap-5 mb-3">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.0, letterSpacing: '-2px' }}>Built on enterprise-grade infrastructure</h2>
+              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', lineHeight: 1.1, letterSpacing: '-1.5px', overflowWrap: 'break-word' }}>Built on enterprise grade infrastructure</h2>
             </div>
-            <p className="text-[15px] leading-[1.65] text-[#6b7280] dark:text-[#9ca3af] max-w-lg lg:ml-6">We use proven, scalable technologies — not experimental tools. Your systems will be maintainable and upgradeable for years.</p>
+            <p className="text-[15px] leading-[1.65] text-[#6b7280] dark:text-[#9ca3af] max-w-lg lg:ml-6">We use proven, scalable technologies not experimental tools. Your systems will be maintainable and upgradeable for years.</p>
             <div className="mt-6 h-px" style={{ width: 'min(340px, 50%)', background: 'linear-gradient(to right, #FF4800, rgba(255,72,0,0.15))' }} />
           </div>
           <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
@@ -404,7 +399,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ══════════════════════════════════════════════════════════════ */}
       <section
         id="section-services"
-        className="py-12 md:py-24 px-6 section-glow-top"
+        className="py-12 md:py-24 px-4 sm:px-6 section-glow-top"
         style={{
           background: isDark
             ? `radial-gradient(at 15% 80%, rgba(255,72,0,0.06) 0%, transparent 50%),
@@ -426,10 +421,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             transition={{ duration: 0.8, ease }}
             className="mb-8 md:mb-14"
           >
-            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: '#FF4800' }}>WHAT WE BUILD</p>
-            <div className="flex items-start gap-6">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#FF4800' }}>WHAT WE BUILD</p>
+            <div className="flex items-start gap-5">
               <div className="mt-1 hidden lg:block flex-shrink-0 rounded-full" style={{ width: '3px', height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.0, letterSpacing: '-2px' }}>
+              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.6rem, 5vw, 3rem)', lineHeight: 1.1, letterSpacing: '-1px', overflowWrap: 'break-word' }}>
                 One Goal: Systems That Run Without You.
               </h2>
             </div>
@@ -441,7 +436,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
-            className="grid grid-cols-1 gap-[29px] md:grid-cols-2 lg:grid-cols-4"
+            className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4"
           >
             {services.map((service, i) => (
               <motion.div key={i} variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }} className="h-full">
@@ -459,16 +454,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <section id="section-capabilities" className="py-12 md:py-24 section-glow-top relative" style={{ background: isDark ? '#12121e' : '#f8f8fc' }}>
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
         <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="mb-8 md:mb-16">
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>WHY STRAVEDA</p>
             <div className="flex items-start gap-5">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}>Enterprise-Grade Execution, Without the Complexity.</h2>
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}>Enterprise Grade Execution, Without the Complexity.</h2>
             </div>
           </motion.div>
           <div className="relative -mx-6 lg:-mx-8 overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}>
-            <motion.div ref={capScrollRef} onScroll={handleCapScroll} variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="flex gap-5 overflow-x-auto pb-6 px-6 lg:px-8 no-scrollbar snap-x snap-mandatory">
+            <motion.div ref={capScrollRef} onScroll={handleCapScroll} variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="flex gap-5 overflow-x-auto pb-6 px-4 sm:px-6 lg:px-8 no-scrollbar snap-x snap-mandatory">
               {bentoItems.map((item) => (
                 <motion.div key={item.title} variants={cardVariants} className="group relative flex-shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-300 cursor-default flex flex-col" style={{ width: 'clamp(260px, 78vw, 440px)', minHeight: '300px', padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)', background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.75)', backdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', WebkitBackdropFilter: 'blur(20px) saturate(1.8) brightness(1.02)', border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1.5px solid rgba(255,255,255,0.9)', boxShadow: isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,72,0,0.35)'; e.currentTarget.style.boxShadow = isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(255,72,0,0.15), 0 24px 48px rgba(0,0,0,0.4)' : 'inset 0 2px 0 rgba(255,255,255,0.95), 0 12px 40px rgba(255,72,0,0.12), 0 24px 48px rgba(0,0,0,0.08)'; e.currentTarget.style.transform = 'translateY(-6px)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9)'; e.currentTarget.style.boxShadow = isDark ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.45)' : 'inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}>
                   <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 55%)' }} />
@@ -534,7 +529,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>We Get It. Because We've Lived It.</h2>
             </div>
             <p className="text-[18px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] text-justify hyphens-auto">
-              Every growing company hits the same wall. Too many tools. Spreadsheets that don't sync. Your best people spending Friday afternoons doing work that shouldn't exist. You don't need another vendor; you need someone who actually understands the problem. We do. We've built companies. We've watched smart founders lose momentum to operational drag. We've felt the frustration of paying for five tools when you really need one well-designed system that your team understands. That's why Straveda is different. We're focused on one thing: building AI-powered systems that replace chaos with structure. Not another platform. Not enterprise bloat. Just technology that actually reduces complexity. We move fast. We're completely transparent. And we measure success the only way that matters—by what changes in your business: hours reclaimed, decisions accelerated, operations that scale without proportional headcount growth.
+              Every growing company hits the same wall. Too many tools. Spreadsheets that don't sync. Your best people spending Friday afternoons doing work that shouldn't exist. You don't need another vendor; you need someone who actually understands the problem. We do. We've built companies. We've watched smart founders lose momentum to operational drag. We've felt the frustration of paying for five tools when you really need one well designed system that your team understands. That's why Straveda is different. We're focused on one thing: building AI Powered systems that replace chaos with structure. Not another platform. Not enterprise bloat. Just technology that actually reduces complexity. We move fast. We're completely transparent. And we measure success the only way that matters—by what changes in your business: hours reclaimed, decisions accelerated, operations that scale without proportional headcount growth.
             </p>
           </motion.div>
         </div>
@@ -546,7 +541,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ── Problem Section ── */}
       <section className="relative py-16 md:py-28 bg-[#f8f8fc] dark:bg-[#0a0a14] overflow-hidden">
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
-        <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="text-center mb-12 md:mb-16">
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>THE REAL PROBLEM</p>
             <div className="flex items-start gap-5 justify-center">
@@ -556,9 +551,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, delay: 0.1, ease }} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { num: '01', heading: 'The Tool Tax', body: "You're paying 6–14 SaaS subscriptions. Half overlap. None talk to each other. Your team spends 2 hours a day moving data between them manually." },
-              { num: '02', heading: 'The Integration Debt', body: "Every new tool requires a Zapier hack. Every Zapier hack breaks monthly. IT says a \"proper integration\" is a 6-month project. So nothing gets built." },
-              { num: '03', heading: 'The Visibility Gap', body: "Leadership can't see pipeline health, ops can't see inventory, and finance finds out about problems when it's already too late to course-correct." },
+              { num: '01', heading: 'The Tool Tax', body: "You're paying 6 to 14 SaaS subscriptions. Half overlap. None talk to each other. Your team spends 2 hours a day moving data between them manually." },
+              { num: '02', heading: 'The Integration Debt', body: "Every new tool requires a Zapier hack. Every Zapier hack breaks monthly. IT says a \"proper integration\" is a 6 Month project. So nothing gets built." },
+              { num: '03', heading: 'The Visibility Gap', body: "Leadership can't see pipeline health, ops can't see inventory, and finance finds out about problems when it's already too late to Course Correct." },
             ].map((item) => (
               <div key={item.num} className="glass-card rounded-xl p-8" style={{ backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)' }}>
                 <p className="text-[40px] font-light mb-4" style={{ color: 'rgba(255,72,0,0.25)', lineHeight: 1 }}>{item.num}</p>
@@ -576,23 +571,23 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ── Process Section ── */}
       <section className="relative py-16 md:py-28" style={{ background: isDark ? '#12121e' : '#ffffff' }}>
         <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
-        <div className="mx-auto max-w-6xl px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="mb-12 md:mb-16">
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>HOW WE WORK</p>
             <div className="flex items-start gap-5">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-4px' }}>From Strategy call to Live System.</h2>
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px', overflowWrap: 'break-word' }}>From Strategy call to Live System.</h2>
             </div>
           </motion.div>
           <div className="relative">
             <div className="hidden md:block absolute top-6 left-6 right-6 h-px" style={{ background: 'linear-gradient(to right, #FF4800, rgba(255,72,0,0.1))' }} />
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
               {[
-                { step: '1', label: 'Discovery', desc: '30-min strategy call to analyze your workflows, identify bottlenecks, and define high-impact automation opportunities. You leave with a clear action plan not a sales pitch.' },
-                { step: '2', label: 'Architecture', desc: 'We design your custom solution, define the tech stack, and scope the build. You receive a fixed-price proposal within 24 hours no hidden costs or ambiguity.' },
-                { step: '3', label: 'Build', desc: 'We develop your system in weekly sprints with full visibility. You review progress regularly, give feedback, and stay in control no black-box development.' },
-                { step: '4', label: 'Automate', desc: 'We wire in the automation layer — triggers, workflows, AI agents. The system starts running without human intervention before we hand over.' },
-                { step: '5', label: 'Scale', desc: "Full handover with documentation. Your team owns it. We're available for retainer support if you need us — but you won't need us to operate it." },
+                { step: '1', label: 'Discovery', desc: '30-min strategy call to analyze your workflows, identify bottlenecks, and define high impact automation opportunities. You leave with a clear action plan not a sales pitch.' },
+                { step: '2', label: 'Architecture', desc: 'We design your custom solution, define the tech stack, and scope the build. You receive a fixed price proposal within 24 hours no hidden costs or ambiguity.' },
+                { step: '3', label: 'Build', desc: 'We develop your system in weekly sprints with full visibility. You review progress regularly, give feedback, and stay in control no black box development.' },
+                { step: '4', label: 'Automate', desc: 'We wire in the automation layer  triggers, workflows, AI agents. The system starts running without human intervention before we hand over.' },
+                { step: '5', label: 'Scale', desc: "Full handover with documentation. Your team owns it. We're available for retainer support if you need us but you won't need us to operate it." },
               ].map((item) => (
                 <motion.div key={item.step} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6, delay: parseInt(item.step) * 0.08, ease }} className="flex flex-col">
                   <div className="flex items-center justify-center w-12 h-12 rounded-full mb-4 text-white text-[14px] font-semibold flex-shrink-0 relative z-10" style={{ background: '#FF4800' }}>{item.step}</div>
@@ -608,7 +603,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ── Pricing Section ── */}
       <section className="relative py-16 md:py-28 bg-[#f8f8fc] dark:bg-[#0a0a14] overflow-hidden">
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
-        <div className="mx-auto max-w-6xl px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="text-center mb-12 md:mb-16">
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>PRICING</p>
             <div className="flex items-start gap-5 justify-center">
@@ -620,7 +615,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { tier: 'Focused Automation Builds', coreValue: 'Streamline key workflows and reduce manual effort.', items: ['One custom automation workflow', 'Seamless integration with your tools', 'Documentation & handover'], timeline: '2-3 weeks', cta: 'Start here', highlight: false },
-              { tier: 'Custom Software & AI Systems', coreValue: 'Build scalable, business-specific systems.', items: ['End-to-end custom development', 'AI workflow integration', 'Scalable, ownership-ready code'], timeline: 'Based on scope', cta: 'Book a call', highlight: true },
+              { tier: 'Custom Software & AI Systems', coreValue: 'Build scalable, business specific systems.', items: ['End To End custom development', 'AI workflow integration', 'Scalable, ownership ready code'], timeline: 'Based on scope', cta: 'Book a call', highlight: true },
               { tier: 'Ongoing Optimization & Scale', coreValue: 'Improve, upgrade, and scale your systems.', items: ['Performance monitoring', 'Feature enhancements', 'Continuous optimization'], timeline: 'Monthly', cta: 'Book a call', highlight: false },
             ].map((plan) => (
               <motion.div key={plan.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7, ease }} className={`rounded-xl p-8 border flex flex-col ${plan.highlight ? 'border-[#FF4800]/40' : 'border-black/[0.06] dark:border-white/[0.08]'}`} style={{ background: plan.highlight ? isDark ? 'rgba(255,72,0,0.08)' : 'rgba(255,72,0,0.04)' : isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.68)', backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', boxShadow: plan.highlight ? '0 8px 32px rgba(255,72,0,0.12), inset 0 1px 0 rgba(255,72,0,0.1)' : '0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)' }}>
@@ -638,18 +633,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </motion.div>
             ))}
           </div>
-          <p className="mt-8 text-center text-[13px] text-[#9ca3af]">All engagements include full source code ownership and zero vendor lock-in. Fixed-price quote after a 30-min discovery call.</p>
+          <p className="mt-8 text-center text-[13px] text-[#9ca3af]">All engagements include full source code ownership and zero vendor lock in. Fixed price quote after a 30-min discovery call.</p>
         </div>
       </section>
 
       {/* ── Closing CTA ── */}
       <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: isDark ? '#12121e' : '#1a1a2e' }}>
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,72,0,0.12) 0%, transparent 70%)' }} />
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 relative z-10 text-center">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }}>
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>GET STARTED</p>
             <h2 className="text-white font-normal text-[clamp(2rem,5vw,3.75rem)] mb-6" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>Stop paying a monthly tax on manual work.</h2>
-            <p className="text-[17px] leading-[1.6] mb-10 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>Book a 30-minute strategy call. You&apos;ll walk away with a working hypothesis for what to automate first. If it&apos;s a fit, we send a proposal within 48 hours.</p>
+            <p className="text-[17px] leading-[1.6] mb-10 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>Book a 30 Minute strategy call. You&apos;ll walk away with a working hypothesis for what to automate first. If it&apos;s a fit, we send a proposal within 48 hours.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => onNavigate('contact')} className="glow-hover flex items-center gap-2 rounded-lg px-8 py-4 text-[15px] font-medium text-white shadow-lg shadow-orange-500/20" style={{ background: '#FF4800' }}>
                 Book a 30-min working call <ArrowRight className="h-4 w-4" />

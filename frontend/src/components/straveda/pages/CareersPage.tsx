@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef } from 'react';
+import HorizontalCarousel from '@/components/straveda/HorizontalCarousel';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -16,28 +17,28 @@ const fadeUp = {
 
 const OPEN_ROLES = [
   {
-    title: 'Full-Stack Engineer',
-    type: 'Full-time',
+    title: 'Full Stack Engineer',
+    type: 'Full Time',
     track: 'Engineering',
     location: 'Remote / Nashik',
     tags: ['Next.js', 'TypeScript', 'Node.js'],
-    desc: 'Build scalable web applications and internal tools for our clients. You will own features end-to-end, from API design to pixel-perfect UI.',
+    desc: 'Build scalable web applications and internal tools for our clients. You will own features End To End, from API design to pixel perfect UI.',
   },
   {
     title: 'AI/ML Engineer',
-    type: 'Full-time',
+    type: 'Full time',
     track: 'AI & Automation',
     location: 'Remote / Nashik',
     tags: ['Python', 'LLMs', 'LangChain'],
-    desc: 'Design and deploy AI-powered workflows and automation pipelines. Work directly with cutting-edge language models and integrate them into production systems.',
+    desc: 'Design and deploy AI Powered workflows and automation pipelines. Work directly with Cutting Edge language models and integrate them into production systems.',
   },
   {
     title: 'Automation Specialist',
-    type: 'Full-time',
+    type: 'Full Time',
     track: 'AI & Automation',
     location: 'Remote',
     tags: ['n8n', 'WhatsApp API', 'Zapier'],
-    desc: 'Architect end-to-end automation workflows that eliminate manual operations for growing businesses. Deep knowledge of integration platforms is a plus.',
+    desc: 'Architect End To End automation workflows that eliminate manual operations for growing businesses. Deep knowledge of integration platforms is a plus.',
   },
   {
     title: 'Product Designer',
@@ -68,25 +69,25 @@ const HIRING_STAGES = [
   },
   {
     stage: 'Stage 3',
-    title: 'Take-Home Project',
+    title: 'Take Home Project',
     duration: 'Optional',
     timeline: 'Flexible',
-    format: 'Real-world problem from our work. Build a feature. Fix a design. No weird algorithmic puzzles.',
-    assesses: 'How you code/design. Problem-solving. Communication about trade-offs.',
+    format: 'Real World problem from our work. Build a feature. Fix a design. No weird algorithmic puzzles.',
+    assesses: 'How you code/design. Problem solving. Communication about Trade Offs.',
   },
   {
     stage: 'Stage 4',
     title: 'Team Interview',
     duration: '20 min',
-    timeline: '3–5 days after project submission',
-    format: 'Meet 2–3 team members (rotating panels). Technical deep dive on your take-home. Ask us anything.',
+    timeline: '3 to 5 days after project submission',
+    format: 'Meet 2 to 3 team members (rotating panels). Technical deep dive on your take home. Ask us anything.',
     assesses: 'Fit with team. Communication. How you think about problems.',
   },
   {
     stage: 'Stage 5',
     title: 'Offer',
     duration: '~1 week',
-    timeline: 'Within 3–5 days of final interview',
+    timeline: 'Within 3 to 5 days of final interview',
     format: 'Call with our CEO or hiring director. Discuss comp, benefits, start date, questions.',
     assesses: 'If we both want to work together, we make an offer.',
   },
@@ -106,8 +107,8 @@ const ROLE_TRACKS = [
     track: 'Custom Software',
     levels: [
       { title: 'Developer (Entry)', desc: 'Build features, understand systems, ship consistently.' },
-      { title: 'Developer (Mid)', desc: 'Own modules, design APIs, handle end-to-end delivery.' },
-      { title: 'Senior Engineer', desc: 'Lead projects, mentor team, make architectural decisions.' },
+      { title: 'Developer (Mid)', desc: 'Own Modules, Design APIs, handle End To End delivery.' },
+      { title: 'Senior Engineer', desc: 'Lead Projects, mentor team, Make Architectural decisions.' },
       { title: 'Tech Lead / Engineering Manager', desc: 'Build teams, define systems, drive execution.' },
     ],
   },
@@ -142,9 +143,9 @@ const CERTIFICATIONS = [
 ];
 
 const MENTORSHIPS = [
-  { from: 'Junior engineer', to: 'Senior architect', focus: 'learning system design' },
+  { from: 'Junior Engineer', to: 'Senior Architect', focus: 'learning system design' },
   { from: 'Designer', to: 'PM', focus: 'learning product thinking' },
-  { from: 'Mid-level engineer', to: 'Startup founder', focus: 'learning to lead' },
+  { from: 'Mid Level Engineer', to: 'Startup founder', focus: 'learning to lead' },
   { from: 'PM', to: 'Design director', focus: 'learning design systems' },
 ];
 
@@ -152,7 +153,7 @@ const VALUES = [
   {
     title: 'Remove Friction',
     body: 'Every project starts with "What can we remove?" not "What should we build?" We\'re ruthless about complexity. Elegant solutions over clever code.',
-    practice: 'Code reviews focus on readability. Meetings have agendas. Tools are chosen for power + simplicity.',
+    practice: 'Code reviews focus on readability. Meetings have agendas. Tools are chosen for power and simplicity.',
   },
   {
     title: 'Own Outcomes',
@@ -355,11 +356,11 @@ function WhoWorksHereSection() {
     { value: '20–25', label: 'Team size' },
     { value: '2+', label: 'Avg. years in tech' },
     { value: '52%', label: 'Women in technical roles' },
-    { value: '100%', label: 'Remote-first' },
+    { value: '100%', label: 'Remote first' },
   ];
   const traits = [
     'Engineers, designers, strategists, PMs — no suits',
-    'Mix of full-time and fractional specialists',
+    'Mix of Full Time and fractional specialists',
     'Distributed across US and India',
     'Employee Resource Group: StravedaTech Community (meets monthly)',
   ];
@@ -374,7 +375,7 @@ function WhoWorksHereSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <HorizontalCarousel cols={4} size="sm" className="mb-12">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
@@ -382,13 +383,13 @@ function WhoWorksHereSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08, ease }}
-              className="glass-card rounded-xl p-6 text-center"
+              className="glass-card rounded-xl p-6 text-center h-full active:scale-95 transition-transform"
             >
-              <p className="text-[32px] font-light tracking-[-1px] text-[#1a1a2e] dark:text-[#f0f0f5] mb-1" style={{ color: '#FF4800' }}>{s.value}</p>
+              <p className="text-[32px] font-light tracking-[-1px] mb-1" style={{ color: '#FF4800' }}>{s.value}</p>
               <p className="text-[12px] text-[#6b7280] dark:text-[#9ca3af]">{s.label}</p>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
 
         <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {traits.map((t) => (
@@ -422,7 +423,7 @@ function GrowthSection() {
         {/* Certification Pathways */}
         <motion.div {...fadeUp} className="mb-14">
           <h3 className="text-[20px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] mb-6">Certification Pathways</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <HorizontalCarousel cols={2} size="md">
             {CERTIFICATIONS.map((c, i) => (
               <motion.div
                 key={c.area}
@@ -430,7 +431,7 @@ function GrowthSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease }}
-                className="glass-card rounded-xl p-6"
+                className="glass-card rounded-xl p-6 h-full active:scale-95 transition-transform"
               >
                 <p className="text-[12px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: '#FF4800' }}>{c.area}</p>
                 <ul className="space-y-2">
@@ -443,25 +444,25 @@ function GrowthSection() {
                 </ul>
               </motion.div>
             ))}
-          </div>
+          </HorizontalCarousel>
         </motion.div>
 
         {/* Mentorship */}
         <motion.div {...fadeUp} className="mb-14">
           <h3 className="text-[20px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] mb-2">Mentorship Program</h3>
           <p className="text-[14px] text-[#6b7280] dark:text-[#9ca3af] mb-6 max-w-xl leading-[1.6]">
-            Every engineer, designer, and PM gets matched with a mentor based on growth goals, not seniority. Monthly 1-hour sessions.
+            Every engineer, designer, and PM gets matched with a mentor based on growth goals, not seniority. Monthly 1 hour sessions.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <HorizontalCarousel cols={2} size="md" showHint={false}>
             {MENTORSHIPS.map((m) => (
-              <div key={m.from + m.to} className="glass-card rounded-xl px-5 py-4 flex items-center gap-4">
+              <div key={m.from + m.to} className="glass-card rounded-xl px-5 py-4 flex items-center gap-4 active:scale-95 transition-transform h-full">
                 <div className="flex-1">
                   <p className="text-[13px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">{m.from} → {m.to}</p>
                   <p className="text-[12px] text-[#6b7280] dark:text-[#9ca3af]">{m.focus}</p>
                 </div>
               </div>
             ))}
-          </div>
+          </HorizontalCarousel>
         </motion.div>
 
         {/* Weekly Knowledge Shares */}
@@ -516,10 +517,11 @@ function GrowthSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease }}
-                className="grid grid-cols-1 md:grid-cols-4 gap-3"
+                className=""
               >
+                <HorizontalCarousel cols={4} size="sm" showHint={false}>
                 {track.levels.map((lvl, i) => (
-                  <div key={lvl.title} className="glass-card rounded-xl p-5 relative">
+                  <div key={lvl.title} className="glass-card rounded-xl p-5 relative h-full active:scale-95 transition-transform">
                     <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#FF4800' }}>
                       Level {i + 1}
                     </div>
@@ -532,6 +534,7 @@ function GrowthSection() {
                     )}
                   </div>
                 ))}
+                </HorizontalCarousel>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -639,7 +642,7 @@ function ValuesSection() {
             We Remove Friction.<br />We Own Outcomes.<br />We Grow Together.
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <HorizontalCarousel cols={3} size="md">
           {VALUES.map((v, i) => (
             <motion.div
               key={v.title}
@@ -647,7 +650,7 @@ function ValuesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1, ease }}
-              className="glass-card rounded-xl p-7"
+              className="glass-card rounded-xl p-7 h-full active:scale-95 transition-transform"
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-5" style={{ background: 'rgba(255,72,0,0.1)' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: '#FF4800' }} />
@@ -660,7 +663,7 @@ function ValuesSection() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
       </div>
     </section>
   );

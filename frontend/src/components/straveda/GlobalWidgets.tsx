@@ -3,34 +3,34 @@
 /**
  * GlobalWidgets — mounted once in the root layout.
  *
- * Renders two fixed-position elements in the bottom-right corner:
- *   [AI Chatbot toggle + panel]   ← stacked above
- *   [WhatsApp float button]       ← at the bottom
+ * Fixed bottom-right stack (z-9999):
+ *   [Straveda AI chatbot button + floating panel]  ← top of stack
+ *   [WhatsApp float button]                        ← bottom of stack
  *
- * These stay visible on every page and survive client-side navigation
- * because they live outside the <AnimatePresence> / page swap boundary.
+ * Survives client-side page navigation because it lives in layout.tsx,
+ * outside the AnimatePresence / page-swap boundary.
  */
 
-import { useTheme } from 'next-themes';
 import WAFloat from '@/components/straveda/WAFloat';
+import GroqChatbot from '@/components/straveda/GroqChatbot';
 
 export default function GlobalWidgets() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-
   return (
     <div
       style={{
-        position: 'fixed',
-        bottom:   24,
-        right:    24,
-        zIndex:   9999,
-        display:  'flex',
+        position:      'fixed',
+        bottom:        24,
+        right:         24,
+        zIndex:        9999,
+        display:       'flex',
         flexDirection: 'column',
-        alignItems: 'flex-end',
-        gap: 12,
+        alignItems:    'flex-end',
+        gap:           12,
       }}
     >
+      {/* AI Chatbot trigger + panel */}
+      <GroqChatbot />
+
       {/* WhatsApp float button */}
       <WAFloat />
     </div>

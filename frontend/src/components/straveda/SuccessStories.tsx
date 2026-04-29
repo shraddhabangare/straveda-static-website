@@ -25,7 +25,7 @@ const stories = [
   },
   {
     company: 'JPMorgan',
-    quote: 'Zero-downtime migration across 200+ microservices in record time.',
+    quote: 'Zero downtime migration across 200+ microservices in record time.',
     industry: 'Finance',
     metric: '200+ services migrated',
   },

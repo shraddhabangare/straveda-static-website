@@ -79,11 +79,7 @@ function FloatingInput({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`floating-input w-full bg-white dark:bg-white/[0.04] border text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 ${
-          focused
-            ? 'border-[#FF4800]'
-            : 'border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
-        }`}
+        className="floating-input w-full border rounded-lg px-4 min-h-[44px] py-3 outline-none transition-colors duration-200"
       />
       <label
         htmlFor={id}
@@ -131,11 +127,7 @@ function FloatingTextarea({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`floating-input w-full bg-white dark:bg-white/[0.04] border text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 resize-none ${
-          focused
-            ? 'border-[#FF4800]'
-            : 'border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
-        }`}
+        className="floating-input w-full border rounded-lg px-4 py-3 outline-none transition-colors duration-200 resize-none"
       />
       <label
         htmlFor={id}
@@ -201,10 +193,10 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-white dark:bg-[#0a0a14] min-h-screen">
-      {/* ─── Inline styles for floating labels & animations ─── */}
+    <div className="bg-white dark:bg-[#121212] min-h-screen">
+      {/* ─── Inline styles for floating labels, mobile card & animations ─── */}
       <style>{`
-        /* ── Floating Label ── */
+        /* ─── Floating Label base ───────────────────────────────────── */
         .floating-label-inactive {
           top: 50%;
           transform: translateY(-50%);
@@ -216,12 +208,11 @@ export default function ContactPage() {
           transform: translateY(-50%);
           font-size: 11px;
           font-weight: 500;
-          color: #FF4800;
+          color: #ff4d00;
           background: white;
           padding: 0 6px;
           letter-spacing: 0.02em;
         }
-        /* For textarea, default position is different */
         textarea ~ .floating-label-inactive {
           top: 16px;
           transform: translateY(0);
@@ -230,9 +221,100 @@ export default function ContactPage() {
           top: 0;
           transform: translateY(-50%);
         }
-        /* ── Decorative Dots stagger ── */
+
+        /* ─── Mobile Dark Card (< 640px) ───────────────────────────── */
+        /* Form card becomes a soft-dark card on mobile for native feel */
+        .contact-form-card {
+          background: #121212;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255,255,255,0.04);
+          border-radius: 12px;
+        }
+        /* Floating label bg must match card bg on mobile */
+        .contact-form-card .floating-label-active {
+          color: #ff4d00;
+          background: #121212;
+        }
+        .contact-form-card .floating-label-inactive {
+          color: #9ca3af;
+        }
+        /* Inputs inside mobile card — dark surface */
+        .contact-form-card .floating-input {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.10);
+          color: #f0f0f5;
+          /* 16px prevents iOS Safari from zooming on focus */
+          font-size: 16px;
+        }
+        .contact-form-card .floating-input:focus {
+          border-color: #ff4d00;
+          box-shadow: 0 0 0 2px rgba(255, 77, 0, 0.25);
+        }
+        .contact-form-card .floating-input:hover:not(:focus) {
+          border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        /* ─── Desktop overrides (sm = 640px+) ──────────────────────── */
+        @media (min-width: 640px) {
+          .contact-form-card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(16px) saturate(1.8);
+            -webkit-backdrop-filter: blur(16px) saturate(1.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+          }
+          .contact-form-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(255, 72, 0, 0.12);
+            border-color: rgba(255, 72, 0, 0.15);
+          }
+          .contact-form-card .floating-label-active {
+            color: #ff4d00;
+            background: white;
+          }
+          .contact-form-card .floating-input {
+            background: white;
+            border-color: #e5e7eb;
+            color: #1a1a2e;
+            font-size: 15px;
+          }
+          .contact-form-card .floating-input:focus {
+            border-color: #ff4d00;
+          }
+          .contact-form-card .floating-input:hover:not(:focus) {
+            border-color: #d1d5db;
+          }
+        }
+
+        /* ─── Dark-mode overrides (any screen size) ─────────────────── */
+        html.dark .contact-form-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.20);
+        }
+        html.dark .contact-form-card:hover {
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 77, 0, 0.18);
+          border-color: rgba(255, 77, 0, 0.18);
+        }
+        html.dark .contact-form-card .floating-label-active {
+          color: #ff4d00;
+          background: #121212;
+        }
+        html.dark .contact-form-card .floating-input {
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.10);
+          color: #f0f0f5;
+          font-size: 16px;
+        }
+        html.dark .contact-form-card .floating-input:focus {
+          border-color: #ff4d00;
+        }
+        html.dark .contact-form-card .floating-input:hover:not(:focus) {
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ─── Decorative Dots stagger ───────────────────────────────── */
         @keyframes accent-dot-fade {
-          0% { opacity: 0; transform: scale(0.4); }
+          0%   { opacity: 0; transform: scale(0.4); }
           100% { opacity: 1; transform: scale(1); }
         }
         .accent-dot {
@@ -242,27 +324,20 @@ export default function ContactPage() {
         .accent-dot:nth-child(1) { animation-delay: 0.8s; }
         .accent-dot:nth-child(2) { animation-delay: 1.0s; }
         .accent-dot:nth-child(3) { animation-delay: 1.2s; }
-        /* ── Map pin pulse ── */
+
+        /* ─── Map pin pulse ─────────────────────────────────────────── */
         @keyframes map-pin-pulse {
           0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.15); opacity: 0.7; }
+          50%       { transform: scale(1.15); opacity: 0.7; }
         }
         .map-pin-pulse {
           animation: map-pin-pulse 2.5s ease-in-out infinite;
-        }
-        /* ── Dark Mode Floating Labels ── */
-        html.dark .floating-label-inactive {
-          color: #9ca3af;
-        }
-        html.dark .floating-label-active {
-          color: #FF4800;
-          background: #0a0a14;
         }
       `}</style>
 
       {/* HERO */}
       <section
-        className="relative flex items-center justify-center bg-white dark:bg-[#0a0a14] overflow-hidden"
+        className="relative flex items-center justify-center bg-white dark:bg-[#121212] overflow-hidden"
         style={{ minHeight: '50vh' }}
       >
         {/* Floating accent blob — top-right */}
@@ -312,7 +387,7 @@ export default function ContactPage() {
       </section>
 
       {/* WHY CHOOSE STRAVEDA — Benefit Cards */}
-      <section className="px-6 pb-8 pt-4 bg-[#f8f8fc] dark:bg-[#0a0a14]">
+      <section className="px-6 pb-8 pt-4 bg-[#f8f8fc] dark:bg-[#121212]">
         <div className="max-w-6xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -336,7 +411,7 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
+      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-24 bg-[#f8f8fc] dark:bg-[#121212]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* LEFT — Contact Form */}
           <motion.div
@@ -347,7 +422,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="glass-card rounded-xl p-5 sm:p-8 space-y-6 magnetic-border"
+              className="contact-form-card p-5 sm:p-8 space-y-6 magnetic-border transition-all duration-300"
             >
               <FloatingInput
                 id="name"
@@ -408,7 +483,7 @@ export default function ContactPage() {
                   data-magnetic
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2 btn-shine cta-pulse"
+                  className="w-full bg-[#ff4d00] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg min-h-[44px] py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,77,0,0.35)] active:scale-[0.98] flex items-center justify-center gap-2 btn-shine cta-pulse"
                 >
                   {isSubmitting ? (
                     <>
@@ -573,7 +648,7 @@ export default function ContactPage() {
               {[
                 'Response within 1 business day',
                 'Free initial consultation',
-                'No lock-in contracts',
+                'No lock in contracts',
                 'Guaranteed satisfaction',
               ].map((item, index) => (
                 <motion.div
@@ -595,7 +670,7 @@ export default function ContactPage() {
       </section>
 
       {/* PROJECT REQUEST WIZARD */}
-      <section className="px-6 py-24 bg-white dark:bg-[#0a0a14]">
+      <section className="px-6 py-24 bg-white dark:bg-[#121212]">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.p
             initial={{ opacity: 0, y: 10 }}

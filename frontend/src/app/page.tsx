@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import SmoothScroll from '@/components/straveda/SmoothScroll'
 import Preloader from '@/components/straveda/Preloader'
 import Navbar from '@/components/straveda/Navbar'
+import AppLayout from '@/components/straveda/AppLayout'
 import Footer from '@/components/straveda/Footer'
 import BackToTop from '@/components/straveda/BackToTop'
 import CustomCursor from '@/components/straveda/CustomCursor'
@@ -171,7 +172,7 @@ function HomeContent() {
   return (
     <SmoothScroll>
       <CustomCursor>
-        <div className="noise-overlay min-h-screen flex flex-col bg-white text-[#1a1a2e]">
+        <AppLayout className="noise-overlay bg-white dark:bg-[#121212] text-[#1a1a2e] dark:text-[#f0f0f5]">
           <Preloader />
           <ScrollProgress />
           <Navbar currentPage={currentPage} onNavigate={handleNavigate} onSearchToggle={() => setSearchOpen(prev => !prev)} />
@@ -181,7 +182,7 @@ function HomeContent() {
             {currentPage.charAt(0).toUpperCase() + currentPage.slice(1)} page
           </div>
 
-          <main className="flex-1" role="main" tabIndex={0}>
+          <main className="flex-1 w-full" role="main" tabIndex={0}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPage}
@@ -189,6 +190,7 @@ function HomeContent() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
+                className="w-full"
               >
                 <Suspense fallback={<PageLoader />}>
                   <CurrentPageComponent onNavigate={handleNavigate} />
@@ -203,7 +205,7 @@ function HomeContent() {
           <BackToTop />
           <CookieConsent />
           <KeyboardHint />
-        </div>
+        </AppLayout>
       </CustomCursor>
     </SmoothScroll>
   )
